@@ -1,4 +1,5 @@
 #include "OUIBox.h"
+#include "ui.h"
 
 #import <ObjFW/objfw-defs.h>
 
@@ -27,7 +28,7 @@
 }
 
 - (int)childCount
-{ return uiBoxPadded(uiBox(_control)); }
+{ return uiBoxNumChildren(uiBox(_control)); }
 
 - (void)append: (OUIControl *)control
 { [self append: control stretchy: 0]; }

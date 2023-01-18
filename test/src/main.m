@@ -1,6 +1,7 @@
 #import <ObjFW/OFStdIOStream.h>
 #import <ObjFW/OFString.h>
 #import <ObjFW/OFArray.h>
+#import <ObjFW/OFMutableArray.h>
 @interface NSArray : OFArray @end
 
 #import <ObjUI/OUI.h>
@@ -16,61 +17,36 @@
 #import <ObjUI/OUIBox.h>
 #import <ObjUI/OUIGroup.h>
 
-static OUIBox *makeBasicControlsPage()
+static OFMutableArray<OUIWindow *> *windows;
+
+static OUIWindow *createWindow(OFString *title)
 {
-    OUIBox *vbox = [OUIBox verticalBox];
-    vbox.padded = true;
+	OUIWindow *window = [OUIWindow windowWithTitle: title width: 640 height: 480 hasMenubar: false];
+	window.onClosing = ^ {
+		[OUI quit];
+		return 0;
+	};
+	window.margined = true;
 
-    OUIBox *hbox = [OUIBox horizontalBox];
-    hbox.padded = true;
+	OUIButton *button = [OUIButton buttonWithText: @"Click me"];
+	button.onChanged = ^ {
+		OUIWindow *wind = createWindow(@"New window");
+		[windows addObject: wind];
+		[wind show];
+	};
+	window.child = button;
 
-    [vbox append: hbox stretchy: false];
-    [hbox append: [OUIButton buttonWithText: @"Button"] stretchy: false];
-    [hbox append: [OUICheckbox checkboxWithText: @"Checkbox"] stretchy: false];
-    [vbox append: [OUILabel labelWithText: @"This is a label.\nLabels can span multiple lines."] stretchy: false];
-	[vbox append: [OUIComboBox comboBoxWithItems: @[ @"Item 1", @"Item 2", @"Item 3" ]] stretchy: false];
-
-    // [vbox append: [OUIHorizontalSeparator horizontalSeparator] stretchy: false];
-
-    OUIGroup *group = [OUIGroup groupWithTitle: @"Entries"];
-    group.margined = true;
-    [vbox append: group stretchy: true];
-
-    OUIForm *entryForm = [OUIForm form];
-    entryForm.padded = true;
-
-    [group setChild: entryForm];
-
-    [entryForm append: [OUIEntry entry] label: @"Entry" stretchy: false];
-    [entryForm append: [OUIEntry passwordEntry] label: @"Password Entry" stretchy: false];
-    [entryForm append: [OUIEntry searchEntry] label: @"Search Entry" stretchy: false];
-	[entryForm append: [OUIEntry multilineEntry] label: @"Multiline Entry" stretchy: true];
-	[entryForm append: [OUIEntry multilineNonWrappingEntry] label: @"Multiline Entry No Wrap" stretchy: true];
-
-	return vbox;
+	return window;
 }
 
-//Control gallery
 int main()
 {
-    [OUI oui];
+	[OUI oui];
 
-    OUIWindow *window = [OUIWindow windowWithTitle: @"Example window" width: 100 height: 100 hasMenubar: false];
-    window.onClosing = ^ {
-        [OUI quit];
-        return 0;
-    };
-    window.margined = true;
+	windows = [OFMutableArray array];
 
-    OUITab *tab = [OUITab tab];
-    window.child = tab;
-
-    [tab append: makeBasicControlsPage() label: @"Basic Controls"];
-	[tab setMargined: true at: 0];
-
-
-
-    [window show];
-    [OUI main];
-    return 0;
+	OUIWindow *window = createWindow(@"Window");
+	[window show];
+	[OUI main];
+	return 0;
 }
