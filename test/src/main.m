@@ -1,4 +1,3 @@
-#include "ObjFW/macros.h"
 #import <ObjFW/OFStdIOStream.h>
 #import <ObjFW/OFString.h>
 #import <ObjFW/OFArray.h>
@@ -20,7 +19,7 @@
 
 static OFString *VowelCheck(OFString *str)
 {
-	switch (str.length > 0 ? [str characterAtIndex: 0] : str.length > 1 ? '\1' : '\0') {
+	switch (str.length > 0 ? str.length > 1 ? '\1' : [str characterAtIndex: 0] : '\0') {
 	case 'a':
 	case 'e':
 	case 'i':
