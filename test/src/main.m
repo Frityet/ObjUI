@@ -1,3 +1,4 @@
+#include "ObjFW/macros.h"
 #import <ObjFW/OFStdIOStream.h>
 #import <ObjFW/OFString.h>
 #import <ObjFW/OFArray.h>
@@ -17,35 +18,67 @@
 #import <ObjUI/OUIBox.h>
 #import <ObjUI/OUIGroup.h>
 
-static OFMutableArray<OUIWindow *> *windows;
-
-static OUIWindow *createWindow(OFString *title)
+static OFString *VowelCheck(OFString *str)
 {
-	OUIWindow *window = [OUIWindow windowWithTitle: title width: 640 height: 480 hasMenubar: false];
-	window.onClosing = ^ {
-		[OUI quit];
-		return 0;
-	};
-	window.margined = true;
+	switch (str.length > 0 ? [str characterAtIndex: 0] : str.length > 1 ? '\1' : '\0') {
+	case 'a':
+	case 'e':
+	case 'i':
+	case 'o':
+	case 'u':
+	case 'A':
+	case 'E':
+	case 'I':
+	case 'O':
+	case 'U':
+		return @"it's a vowel";
+		break;
 
-	OUIButton *button = [OUIButton buttonWithText: @"Click me"];
-	button.onChanged = ^ {
-		OUIWindow *wind = createWindow(@"New window");
-		[windows addObject: wind];
-		[wind show];
-	};
-	window.child = button;
+	case 'y':
+	case 'Y':
+		return @"might be a vowel";
+		break;
 
-	return window;
+	case '\0':
+		return @"no input";
+		break;
+	case '\1':
+		return @"not a single character";
+		break;
+
+	default:
+		return @"it's not a vowel";
+		break;
+	}
 }
 
 int main()
 {
 	[OUI oui];
 
-	windows = [OFMutableArray array];
+	OUIWindow *window = [OUIWindow windowWithTitle: @"Vowel Tester" width: 256 height: 128 hasMenubar: false];
+	window.margined = true;
+	window.onClosing = ^ {
+		[OUI quit];
+		return 0;
+	};
 
-	OUIWindow *window = createWindow(@"Window");
+	OUIBox *box = [OUIBox verticalBox];
+	box.padded = true;
+	window.child = box;
+
+	OUILabel *label = [OUILabel labelWithText: @"Is vowel: "];
+	[box append: label stretchy: false];
+
+	OUIEntry *word = [OUIEntry entry];
+	word.text = @"Insert vowel here";
+	word.onChanged = ^(OUIControl *ctrl) {
+		OUIEntry *word = (OUIEntry *)ctrl;
+		OFString *text = word.text;
+		label.text = [OFString stringWithFormat: @"Is vowel: %@", VowelCheck(text)];
+	};
+
+	[box append: word stretchy: false];
 	[window show];
 	[OUI main];
 	return 0;

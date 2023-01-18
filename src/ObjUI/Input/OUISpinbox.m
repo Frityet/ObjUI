@@ -2,8 +2,8 @@
 
 static void onChangedWrapper(uiSpinbox *spinbox, void *data)
 {
-    void (^onChanged)() = (__bridge void (^)(void))data;
-    onChanged();
+    OUISpinbox *self = (__bridge OUISpinbox *)data;
+    self.onChanged(self);
 }
 
 @implementation OUISpinbox
@@ -40,10 +40,10 @@ static void onChangedWrapper(uiSpinbox *spinbox, void *data)
     _value = value;
 }
 
-- (void)setOnChanged: (void (^)())fn
+- (void)setOnChanged: (void (^)(OUIControl *))fn
 {
     self->onChanged = fn;
-    uiSpinboxOnChanged(uiSpinbox(_control), &onChangedWrapper, (__bridge void *)onChanged);
+    uiSpinboxOnChanged(uiSpinbox(_control), &onChangedWrapper, (__bridge void *)self);
 }
 
 @end

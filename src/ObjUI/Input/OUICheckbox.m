@@ -2,8 +2,8 @@
 
 static void onToggledWrapper(uiCheckbox *checkbox, void *data)
 {
-    void (^onToggled)() = (__bridge void (^)(void))data;
-    onToggled();
+    OUICheckbox *self = (__bridge OUICheckbox *)data;
+    self.onChanged(self);
 }
 
 @implementation OUICheckbox
@@ -35,10 +35,10 @@ static void onToggledWrapper(uiCheckbox *checkbox, void *data)
     _checked = checked;
 }
 
-- (void)setOnChanged: (void (^)())onToggled
+- (void)setOnChanged: (void (^)(OUIControl *))onToggled
 {
     self->onChanged = onToggled;
-    uiCheckboxOnToggled(uiCheckbox(_control), &onToggledWrapper, (__bridge void *)onChanged);
+    uiCheckboxOnToggled(uiCheckbox(_control), &onToggledWrapper, (__bridge void *)self);
 }
 
 @end

@@ -2,8 +2,8 @@
 
 static void onChangedWrapper(uiSlider *s, void *data)
 {
-    void (^onChanged)() = (__bridge void (^)(void))data;
-    onChanged();
+    OUISlider *self = (__bridge OUISlider *)data;
+    self.onChanged(self);
 }
 
 @implementation OUISlider
@@ -40,10 +40,10 @@ static void onChangedWrapper(uiSlider *s, void *data)
     _value = value;
 }
 
-- (void)setOnChanged: (void (^)())fn
+- (void)setOnChanged: (void (^)(OUIControl *))fn
 {
     self->onChanged = fn;
-    uiSliderOnChanged(uiSlider(_control), &onChangedWrapper, (__bridge void *)onChanged);
+    uiSliderOnChanged(uiSlider(_control), &onChangedWrapper, (__bridge void *)self);
 }
 
 @end

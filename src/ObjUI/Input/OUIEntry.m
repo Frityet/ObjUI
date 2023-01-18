@@ -4,8 +4,9 @@
 
 static void onChangedWrapper(uiEntry *entry, void *data)
 {
-    void (^onChanged)() = (__bridge void (^)(void))data;
-    onChanged();
+    OUIEntry *self = (__bridge OUIEntry *)data;
+    self.text = [OFString stringWithUTF8String:uiEntryText(entry)];
+    self.onChanged(self);
 }
 
 @implementation OUIEntry
@@ -69,10 +70,10 @@ static void onChangedWrapper(uiEntry *entry, void *data)
     _text = text;
 }
 
-- (void)setOnChanged:(void (^)())fn
+- (void)setOnChanged:(void (^)(OUIControl *))fn
 {
     self->onChanged = fn;
-    uiEntryOnChanged(uiEntry(_control), &onChangedWrapper, (__bridge void *)onChanged);
+    uiEntryOnChanged(uiEntry(_control), &onChangedWrapper, (__bridge void *)self);
 }
 
 - (void)setReadonly:(bool)readonly
