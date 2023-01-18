@@ -19,6 +19,7 @@ static void onChangedWrapper(uiCombobox *combobox, void *data)
     if (self == nil) return nil;
 
     _control = uiControl(uiNewCombobox());
+    _items = [items mutableCopy];
 
     for (OFString *item in items) {
         uiComboboxAppend(uiCombobox(_control), item.UTF8String);
@@ -60,7 +61,7 @@ static void onChangedWrapper(uiCombobox *combobox, void *data)
     [_items removeObjectAtIndex:index];
 }
 
-- (int)selectedIndex
+- (int)getSelectedIndex
 {
     _selectedIndex = uiComboboxSelected(uiCombobox(_control));
     return _selectedIndex;
@@ -70,7 +71,12 @@ static void onChangedWrapper(uiCombobox *combobox, void *data)
 { return uiComboboxNumItems(uiCombobox(_control)); }
 
 - (OFString *)selected
-{ return _items[self.selectedIndex]; }
+{
+    int sel = self.selectedIndex;
+    if (sel < 0) return nil;
+
+    return _items[sel];
+}
 
 - (void)clear
 {

@@ -5,6 +5,11 @@
 
 #include <ui.h>
 
+static void unInitWrapper(void)
+{
+    @try { uiUninit(); } @catch(OFObject *ptr) {};
+}
+
 static int onShouldQuitWrapper(void *data)
 {
     bool (^onShouldQuit)() = (__bridge bool (^)())data;
@@ -17,11 +22,11 @@ static int onShouldQuitWrapper(void *data)
 {
     const char *err = uiInit(&(uiInitOptions){0});
 
-    if (err != NULL) {
+    if (err != NULL)
         @throw [OFInitializationFailedException exception];
-    }
 
-    atexit(uiUninit);
+
+    // atexit(uiUninit);
 }
 
 + (void)main

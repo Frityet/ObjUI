@@ -10,7 +10,7 @@
 
 @interface OUIEditableComboBox : OUIControl<OUIInput>
 
-@property(nonatomic, setter=setText:) OFString *text;
+@property(nonatomic, setter=setText:, getter=getText) OFString *text;
 
 + (instancetype)editableComboBoxWithItems: (OFArray<OFString *> *)items;
 

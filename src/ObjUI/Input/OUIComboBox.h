@@ -8,15 +8,17 @@
 #import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
 
+#pragma clang assume_nonnull begin
+
 @interface OUIComboBox : OUIControl<OUIInput> {
-    @private OFMutableArray<OFString *> *_items;
+    @private OFMutableArray<OFString * > *_items;
 }
 
-@property(nonatomic, setter=setSelectedIndex:) int selectedIndex;
+@property(nonatomic, setter=setSelectedIndex:, getter=getSelectedIndex) int selectedIndex;
 @property(nonatomic, setter=setItems:) OFArray<OFString *> *items;
 
 @property(readonly) int itemCount;
-@property(readonly) OFString *selected;
+@property(readonly) OFString *_Nullable selected;
 
 + (instancetype)comboBoxWithItems: (OFArray<OFString *> *)items;
 
@@ -29,3 +31,5 @@
 - (void)clear;
 
 @end
+
+#pragma clang assume_nonnull end

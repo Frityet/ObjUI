@@ -35,10 +35,10 @@ static void onChangedWrapper(uiSlider *s, void *data)
 }
 
 - (void)setValue: (int)value
-{
-    uiSliderSetValue(uiSlider(_control), value);
-    _value = value;
-}
+{ uiSliderSetValue(uiSlider(_control), value); }
+
+- (int)getValue
+{ return uiSliderValue(uiSlider(_control)); }
 
 - (void)setOnChanged: (void (^)(OUIControl *))fn
 {

@@ -17,6 +17,6 @@
 { return uiControlVisible(self.control); }
 
 - (void)dealloc
-{ uiControlDestroy(self.control); }
+{ /*uiControlDestroy(self.control);*/ }
 
 @end

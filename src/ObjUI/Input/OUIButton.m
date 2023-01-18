@@ -11,7 +11,7 @@ static void onClickedWrapper(uiButton *button, void *data)
 
 @synthesize onChanged;
 
-+ (instancetype)buttonWithText:(OFString *)text
++ (instancetype)buttonWithLabel:(OFString *)text
 { return [[self alloc] initWithText:text]; }
 
 - (instancetype)initWithText:(OFString *)text

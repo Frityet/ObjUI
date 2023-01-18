@@ -10,7 +10,7 @@
 
 @property(nonatomic, setter=setText:) OFString *text;
 
-+ (instancetype)buttonWithText: (OFString *)text;
++ (instancetype)buttonWithLabel: (OFString *)text;
 - (instancetype)initWithText: (OFString *)text;
 
 

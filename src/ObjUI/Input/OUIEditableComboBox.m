@@ -34,10 +34,10 @@ static void onChangedWrapper(uiEditableCombobox *control, void *data)
 }
 
 - (void)setText:(OFString *)text
-{
-    uiEditableComboboxSetText(uiEditableCombobox(_control), text.UTF8String);
-    _text = text;
-}
+{ uiEditableComboboxSetText(uiEditableCombobox(_control), text.UTF8String); }
+
+- (OFString *)getText
+{ return [OFString stringWithUTF8String: uiEditableComboboxText(uiEditableCombobox(_control))]; }
 
 - (void)append: (OFString *)item
 {

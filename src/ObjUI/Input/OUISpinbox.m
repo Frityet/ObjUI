@@ -35,10 +35,10 @@ static void onChangedWrapper(uiSpinbox *spinbox, void *data)
 }
 
 - (void)setValue: (int)value
-{
-    uiSpinboxSetValue(uiSpinbox(_control), value);
-    _value = value;
-}
+{ uiSpinboxSetValue(uiSpinbox(_control), value); }
+
+- (int)getValue
+{ return uiSpinboxValue(uiSpinbox(_control)); }
 
 - (void)setOnChanged: (void (^)(OUIControl *))fn
 {

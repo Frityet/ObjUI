@@ -17,7 +17,7 @@ enum OUIEntryType {
 
 @interface OUIEntry : OUIControl<OUIInput>
 
-@property(nonatomic, setter=setText:) OFString *text;
+@property(nonatomic, setter=setText:, getter=getText) OFString *text;
 @property(nonatomic, setter=setReadonly:) bool readonly;
 @property(readonly) enum OUIEntryType type;
 

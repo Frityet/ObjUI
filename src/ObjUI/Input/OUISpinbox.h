@@ -8,7 +8,7 @@
 
 @interface OUISpinbox : OUIControl<OUIInput>
 
-@property(nonatomic, setter=setValue:) int value;
+@property(nonatomic, setter=setValue:, getter=getValue) int value;
 
 + (instancetype)spinbox;
 + (instancetype)spinboxWithMin: (int)min max: (int)max;

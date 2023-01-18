@@ -8,7 +8,7 @@
 
 @interface OUISlider : OUIControl<OUIInput>
 
-@property(nonatomic, setter=setValue:) int value;
+@property(nonatomic, setter=setValue:, getter=getValue) int value;
 
 + (instancetype)slider;
 + (instancetype)sliderWithMin: (int)min max: (int)max;

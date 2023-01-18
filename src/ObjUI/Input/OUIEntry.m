@@ -65,9 +65,14 @@ static void onChangedWrapper(uiEntry *entry, void *data)
 }
 
 - (void)setText:(OFString *)text
+{ uiEntrySetText(uiEntry(_control), text.UTF8String); }
+
+- (OFString *)getText
 {
-    uiEntrySetText(uiEntry(_control), text.UTF8String);
-    _text = text;
+    char *txt = uiEntryText(uiEntry(_control));
+    OFString *ret = [OFString stringWithUTF8String: txt];
+    uiFreeText(txt);
+    return ret;
 }
 
 - (void)setOnChanged:(void (^)(OUIControl *))fn
