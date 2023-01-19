@@ -39,7 +39,7 @@ static int onShouldQuitWrapper(void *data)
     uiQuit();
 }
 
-+ (void)setOnShouldQuit:(bool (^)(void))onShouldQuit
++ (void)onShouldQuit:(bool (^)(void))onShouldQuit
 { uiOnShouldQuit(&onShouldQuitWrapper, (__bridge void *)onShouldQuit); }
 
 @end

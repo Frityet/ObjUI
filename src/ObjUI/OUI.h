@@ -6,6 +6,6 @@
 + (void) main;
 + (void) quit;
 
-+ (void) setOnShouldQuit: (bool (^)())onShouldQuit;
++ (void) onShouldQuit: (bool (^)())onShouldQuit;
 
 @end

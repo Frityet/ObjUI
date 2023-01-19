@@ -77,4 +77,7 @@ static void onContentSizeChangedWrapper(uiWindow *window, void *data)
     uiWindowSetChild(uiWindow(_control), uiControl(child.control));
 }
 
+- (void)close
+{ uiControlDestroy(_control); }
+
 @end

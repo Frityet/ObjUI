@@ -24,4 +24,6 @@
 + (instancetype)windowWithTitle: (OFString *)title width: (int)width height: (int)height hasMenubar: (bool)hasMenuBar;
 - (instancetype)initWithTitle: (OFString *)title width: (int)width height: (int)height hasMenubar: (bool)hasMenuBar;
 
+- (void)close;
+
 @end

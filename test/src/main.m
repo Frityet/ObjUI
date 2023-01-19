@@ -36,6 +36,20 @@ int main()
 	};
 
 
+	OUIBox *vbox = [OUIBox verticalBox];
+	vbox.padded = true;
+	{
+		OUILabel *label = [OUILabel labelWithText: @"Hello, World!"];
+		[vbox append: label];
+
+		OUIButton *button = [OUIButton buttonWithLabel: @"Quit"];
+		button.onChanged = ^(OUIControl *) {
+			[window close];
+		};
+		[vbox append: button];
+	}
+	window.child = vbox;
+
 
 	[window show];
 	[OUI main];
