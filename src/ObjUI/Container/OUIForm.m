@@ -14,11 +14,11 @@
     return self;
 }
 
-- (void)append: (OUIControl *)control label: (OFString *)label stretchy: (bool)stretchy
+- (void)appendControl: (OUIControl *)control label: (OFString *)label stretchy: (bool)stretchy
 { uiFormAppend(uiForm(_control), [label UTF8String], uiControl(control.control), stretchy); }
 
-- (void)append: (OUIControl *)control label: (OFString *)label
-{ [self append: control label: label stretchy: 0]; }
+- (void)appendControl: (OUIControl *)control label: (OFString *)label
+{ [self appendControl: control label: label stretchy: 0]; }
 
 - (void)delete: (int)index
 { uiFormDelete(uiForm(_control), index); }

@@ -9,11 +9,12 @@ local sanitizers = { "address", "leak", "undefined" }
 local mflags = {
     release = {},
     debug = {
-        "-Wno-unused-function", "-Wno-unused-parameter", "-Wno-unused-variable"
+        "-Wno-unused-function", "-Wno-unused-parameter", "-Wno-unused-variable",
+        -- "--analyze"
     },
     regular = {
         "-Wall", "-Wextra", "-Werror",
-        "-fmodules",
+
         "-fexceptions", "-fobjc-exceptions", "-funwind-tables", "-fconstant-string-class=OFConstantString", "-Xclang", "-fno-constant-cfstrings", "-Xclang", "-fblocks", "-fobjc-arc", "-fobjc-arc-exceptions",
         "-Wno-unused-variable", "-Wno-unused-parameter",
     }

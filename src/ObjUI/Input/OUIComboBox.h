@@ -25,7 +25,7 @@
 - (instancetype)initWithItems: (OFArray<OFString *> *)items;
 
 - (void)append: (OFString *)item;
-- (void)insert: (OFString *)item at: (int)index;
+- (void)insert: (OFString *)item atIndex: (int)index;
 - (void)delete: (int)index;
 
 - (void)clear;

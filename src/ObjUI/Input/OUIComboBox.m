@@ -49,7 +49,7 @@ static void onChangedWrapper(uiCombobox *combobox, void *data)
     [_items addObject:item];
 }
 
-- (void)insert: (OFString *)item at: (int)index
+- (void)insert: (OFString *)item atIndex: (int)index
 {
     uiComboboxInsertAt(uiCombobox(_control), index, item.UTF8String);
     [_items insertObject:item atIndex:index];

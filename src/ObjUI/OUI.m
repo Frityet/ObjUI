@@ -5,11 +5,6 @@
 
 #include <ui.h>
 
-static void unInitWrapper(void)
-{
-    @try { uiUninit(); } @catch(OFObject *ptr) {};
-}
-
 static int onShouldQuitWrapper(void *data)
 {
     bool (^onShouldQuit)() = (__bridge bool (^)())data;

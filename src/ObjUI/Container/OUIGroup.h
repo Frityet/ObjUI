@@ -8,12 +8,12 @@
 
 @property(nonatomic, setter=setTitle:) OFString *title;
 @property(nonatomic, setter=setMargined:) bool margined;
+@property(nonatomic, setter=setChild:) OUIControl *child;
 
 
-+ (instancetype)groupWithTitle: (OFString *)title;
 
-- (instancetype)initWithTitle: (OFString *)title;
-- (void)setChild: (OUIControl *)control;
++ (instancetype)groupWithLabel: (OFString *)title;
 
+- (instancetype)initWithLabel: (OFString *)title;
 
 @end

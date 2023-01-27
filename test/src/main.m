@@ -1,13 +1,11 @@
-#import <ObjFW/OFStdIOStream.h>
 #import <ObjFW/OFString.h>
 #import <ObjFW/OFArray.h>
-#import <ObjFW/OFMutableArray.h>
-@interface NSArray : OFArray @end
 
 #import <ObjUI/OUI.h>
 #import <ObjUI/OUIDialog.h>
 #import <ObjUI/OUILabel.h>
 #import <ObjUI/OUIMenu.h>
+#import <ObjUI/OUISeperator.h>
 #import <ObjUI/Input/OUIButton.h>
 #import <ObjUI/Input/OUICheckbox.h>
 #import <ObjUI/Input/OUIEntry.h>
@@ -16,42 +14,110 @@
 #import <ObjUI/Input/OUISpinbox.h>
 #import <ObjUI/Input/OUIDateTimePicker.h>
 #import <ObjUI/Input/OUIColourButton.h>
+#import <ObjUI/Input/OUIFontButton.h>
 #import <ObjUI/Container/OUIWindow.h>
 #import <ObjUI/Container/OUIForm.h>
 #import <ObjUI/Container/OUIBox.h>
 #import <ObjUI/Container/OUITab.h>
 #import <ObjUI/Container/OUIBox.h>
+#import <ObjUI/Container/OUIGrid.h>
 #import <ObjUI/Container/OUIGroup.h>
+
+static OUIBox *basicControls()
+{
+    OUIBox *vbox = [OUIBox verticalBox];
+    vbox.padded = true;
+    {
+        OUIBox *hbox = [OUIBox horizontalBox];
+        hbox.padded = true;
+        {
+            [hbox appendControl: [OUIButton buttonWithLabel: @"Button"]];
+            [hbox appendControl: [OUICheckbox checkboxWithLabel: @"Checkbox"]];
+        }
+        [vbox appendControl: hbox];
+
+        [vbox appendControl: [OUILabel labelWithText: @"This is a label.\nLabels can span multiple lines."]];
+
+        [vbox appendControl: [OUISeperator horizontalSeperator]];
+
+        OUIGroup *group = [OUIGroup groupWithLabel: @"Entries"];
+        group.margined = true;
+        {
+            OUIForm *entryForm = [OUIForm form];
+            entryForm.padded = true;
+            group.child = entryForm;
+
+            [entryForm appendControl: [OUIEntry entry] label: @"Entry"];
+            [entryForm appendControl: [OUIEntry passwordEntry] label: @"Password entry"];
+            [entryForm appendControl: [OUIEntry multilineEntry] label: @"Multiline entry"];
+            [entryForm appendControl: [OUIEntry multilineNonWrappingEntry] label: @"Non-wrapping multiline entry"];
+        }
+        [vbox appendControl: group];
+    }
+    return vbox;
+}
+
+static OUIBox *inputControls()
+{
+    OUIBox *hbox = [OUIBox horizontalBox];
+    hbox.padded = true;
+    {
+        OUIBox *vbox = [OUIBox verticalBox];
+        vbox.padded = true;
+        {
+            [vbox appendControl: [OUIDateTimePicker datePicker]];
+            [vbox appendControl: [OUIDateTimePicker timePicker]];
+            [vbox appendControl: [OUIDateTimePicker dateTimePicker]];
+            [vbox appendControl: [OUIFontButton     fontButton]];
+            [vbox appendControl: [OUIColourButton   colourButton]];
+        }
+        [hbox appendControl: vbox];
+
+        [hbox appendControl: [OUISeperator verticalSeperator]];
+
+        vbox = [OUIBox verticalBox];
+        vbox.padded = true;
+        {
+            OUIGrid *grid = [OUIGrid grid];
+
+            OUIButton *button = [OUIButton buttonWithLabel: @"  Open File  "];
+            OUIEntry *entry = [OUIEntry entry];
+            entry.readonly = true;
+            entry.onChanged = ^(OUIControl *) {
+                // [entry setText: [OUIDialog openFile: @"/" title: @"Open File"]];
+            };
+
+            // [grid appendControl: button ];
+
+            [vbox appendControl: grid];
+        }
+        [hbox appendControl: vbox];
+    }
+    return hbox;
+}
 
 int main()
 {
-	//hehe wee wee
-	[OUI oui];
+    //hehe wee wee
+    [OUI oui];
 
-	OUIWindow *window = [OUIWindow windowWithTitle: @"" width: 256 height: 128 hasMenubar: false];
-	window.margined = true;
-	window.onClosing = ^ {
-		[OUI quit];
-		return 0;
-	};
+    OUIWindow *window = [OUIWindow windowWithTitle: @"" width: 256 height: 128 hasMenubar: false];
+    window.margined = true;
+    window.onClosing = ^ {
+        [OUI quit];
+        return 0;
+    };
 
+    OUITab *tab = [OUITab tab];
+    window.child = tab;
 
-	OUIBox *vbox = [OUIBox verticalBox];
-	vbox.padded = true;
-	{
-		OUILabel *label = [OUILabel labelWithText: @"Hello, World!"];
-		[vbox append: label];
+    [tab appendControl: basicControls() label: @"Basic Controls"];
+    [tab setMargined: true atIndex: 0];
 
-		OUIButton *button = [OUIButton buttonWithLabel: @"Quit"];
-		button.onChanged = ^(OUIControl *) {
-			[window close];
-		};
-		[vbox append: button];
-	}
-	window.child = vbox;
+    [tab appendControl: inputControls() label: @"Input Controls"];
+    [tab setMargined: true atIndex: 1];
 
-
-	[window show];
-	[OUI main];
-	return 0;
+    [window show];
+    [OUI main];
+    return 0;
 }

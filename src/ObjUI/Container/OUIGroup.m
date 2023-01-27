@@ -2,10 +2,10 @@
 
 @implementation OUIGroup
 
-+ (instancetype)groupWithTitle:(OFString *)title
-{ return [[self alloc] initWithTitle:title]; }
++ (instancetype)groupWithLabel:(OFString *)title
+{ return [[self alloc] initWithLabel:title]; }
 
-- (instancetype)initWithTitle:(OFString *)title
+- (instancetype)initWithLabel:(OFString *)title
 {
     if ((self = [super init]) == nil) return nil;
 
@@ -28,6 +28,7 @@
 
 - (void)setChild:(OUIControl *)child
 {
+    _child = child;
     uiGroupSetChild(uiGroup(_control), child.control);
 }
 

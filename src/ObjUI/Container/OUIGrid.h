@@ -10,14 +10,14 @@
 
 + (instancetype)grid;
 
-- (void)append: (OUIControl *)control
-          left: (int)left
-           top: (int)top
-         xSpan: (int)xspan
-         ySpan: (int)yspan
-       hExpand: (bool)hexpand
-       vExpand: (bool)vexpand
-        hAlign: (int)hAlign
-        vAlign: (int)vAlign;
+- (void)appendControl: (OUIControl *)control
+                 left: (int)left
+                  top: (int)top
+                xSpan: (int)xspan
+                ySpan: (int)yspan
+              hExpand: (bool)hexpand
+              vExpand: (bool)vexpand
+               hAlign: (int)hAlign
+               vAlign: (int)vAlign;
 
 @end

@@ -17,7 +17,7 @@ local mflags = {
     },
     regular = {
         "-Wall", "-Wextra", "-Werror",
-        "-fmodules",
+
         "-fexceptions", "-fobjc-exceptions", "-funwind-tables", "-fconstant-string-class=OFConstantString", "-Xclang", "-fno-constant-cfstrings", "-Xclang", "-fblocks", "-fobjc-arc", "-fobjc-arc-exceptions",
         "-Wno-unused-variable", "-Wno-unused-parameter",
     }

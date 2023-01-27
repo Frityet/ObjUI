@@ -11,8 +11,8 @@
 @property(nonatomic, setter=setText:) OFString *text;
 @property(nonatomic, setter=setChecked:) bool checked;
 
-+ (instancetype)checkboxWithText: (OFString *)text;
++ (instancetype)checkboxWithLabel: (OFString *)text;
 
-- (instancetype)initWithText: (OFString *)text;
+- (instancetype)initWithLabel: (OFString *)text;
 
 @end

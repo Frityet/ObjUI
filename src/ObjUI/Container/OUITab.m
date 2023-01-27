@@ -14,14 +14,14 @@
     return self;
 }
 
-- (void)append:(OUIControl *)control label: (OFString *)name
+- (void)appendControl:(OUIControl *)control label: (OFString *)name
 { uiTabAppend(uiTab(_control), name.UTF8String, control.control); }
 
 
-- (void)insertAt:(int)index with:(OUIControl *)control label:(OFString *)name
+- (void)insertAtIndex:(int)index with:(OUIControl *)control label:(OFString *)name
 { uiTabInsertAt(uiTab(_control), name.UTF8String, index, control.control); }
 
-- (void)setMargined:(bool)margined at:(int)index
+- (void)setMargined:(bool)margined atIndex:(int)index
 { uiTabSetMargined(uiTab(_control), index, margined); }
 
 - (void)delete:(int)index

@@ -16,8 +16,8 @@
 
 - (instancetype)initWithVerticalOrientation: (bool)vertical;
 
-- (void)append: (OUIControl *)control stretchy: (bool)stretchy;
-- (void)append: (OUIControl *)control;
+- (void)appendControl: (OUIControl *)control stretchy: (bool)stretchy;
+- (void)appendControl: (OUIControl *)control;
 
 - (void)delete: (int)index;
 

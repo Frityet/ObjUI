@@ -11,8 +11,8 @@
 
 + (instancetype)form;
 
-- (void)append: (OUIControl *)control label: (OFString *)label stretchy: (bool)stretchy;
-- (void)append: (OUIControl *)control label: (OFString *)label;
+- (void)appendControl: (OUIControl *)control label: (OFString *)label stretchy: (bool)stretchy;
+- (void)appendControl: (OUIControl *)control label: (OFString *)label;
 - (void)delete: (int)index;
 
 @end

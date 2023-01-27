@@ -10,10 +10,10 @@ static void onToggledWrapper(uiCheckbox *checkbox, void *data)
 
 @synthesize onChanged;
 
-+ (instancetype)checkboxWithText: (OFString *)text
-{ return [[self alloc] initWithText: text]; }
++ (instancetype)checkboxWithLabel: (OFString *)text
+{ return [[self alloc] initWithLabel: text]; }
 
-- (instancetype)initWithText: (OFString *)text
+- (instancetype)initWithLabel: (OFString *)text
 {
     self = [super init];
     if (self == nil) return nil;

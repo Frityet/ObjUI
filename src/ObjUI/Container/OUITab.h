@@ -10,9 +10,9 @@
 
 + (instancetype)tab;
 
-- (void)append: (OUIControl *)control label: (OFString *)label;
+- (void)appendControl: (OUIControl *)control label: (OFString *)label;
 - (void)delete: (int)index;
-- (void)insertAt: (int)index with: (OUIControl *)control label: (OFString *)label;
-- (void)setMargined: (bool)margined at: (int)index;
+- (void)insertAtIndex: (int)index with: (OUIControl *)control label: (OFString *)label;
+- (void)setMargined: (bool)margined atIndex: (int)index;
 
 @end

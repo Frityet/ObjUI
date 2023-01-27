@@ -19,8 +19,6 @@ do
         local objfw_config = find_tool("objfw-config")
         if not objfw_config then raise("Objfw-config not found!") end
 
-        print("Objc flags: ", os.iorunv(objfw_config.program, { "--objcflags" }))
-        print("Linker flags: ", os.iorunv(objfw_config.program,  { "--libs", "--ldflags", "--rpath" }))
         package:add("mflags", os.iorunv(objfw_config.program, { "--objcflags" }))
         package:add("ldflags", os.iorunv(objfw_config.program,  { "--libs", "--ldflags", "--rpath" }))
     end)
