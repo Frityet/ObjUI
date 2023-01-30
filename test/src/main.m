@@ -101,16 +101,6 @@ static OUIBox *inputControls(OUIWindow *window)
     return hbox;
 }
 
-static OUIBox *tables()
-{
-    OUIBox *vbox = [OUIBox verticalBox];
-    vbox.padded = true;
-    {
-
-    }
-    return vbox;
-}
-
 int main()
 {
     //hehe wee wee
@@ -133,9 +123,6 @@ int main()
 
     [tab appendControl: inputControls(window) label: @"Input Controls"];
     [tab setMargined: true atIndex: 1];
-
-    [tab appendControl: tables() label: @"Table Controls"];
-    [tab setMargined: true atIndex: 2];
 
     [window show];
     [OUI main];
