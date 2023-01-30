@@ -1,3 +1,4 @@
+#include "ui.h"
 #import <ObjFW/OFString.h>
 #import <ObjFW/OFArray.h>
 
@@ -22,6 +23,11 @@
 #import <ObjUI/Container/OUIBox.h>
 #import <ObjUI/Container/OUIGrid.h>
 #import <ObjUI/Container/OUIGroup.h>
+
+#define nullable __nullable
+#define nonnull __nonnull
+
+#pragma clang assume_nonnull begin
 
 static OUIBox *basicControls()
 {
@@ -96,10 +102,22 @@ static OUIBox *inputControls()
     return hbox;
 }
 
+static OUIBox *tables()
+{
+    OUIBox *vbox = [OUIBox verticalBox];
+    vbox.padded = true;
+    {
+
+    }
+    return vbox;
+}
+
 int main()
 {
     //hehe wee wee
     [OUI oui];
+
+
 
     OUIWindow *window = [OUIWindow windowWithTitle: @"" width: 256 height: 128 hasMenubar: false];
     window.margined = true;
@@ -117,7 +135,12 @@ int main()
     [tab appendControl: inputControls() label: @"Input Controls"];
     [tab setMargined: true atIndex: 1];
 
+    [tab appendControl: tables() label: @"Table Controls"];
+    [tab setMargined: true atIndex: 2];
+
     [window show];
     [OUI main];
     return 0;
 }
+
+#pragma clang assume_nonnull end
