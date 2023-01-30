@@ -24,8 +24,8 @@
 #import <ObjUI/Container/OUIGrid.h>
 #import <ObjUI/Container/OUIGroup.h>
 
-#define nullable __nullable
-#define nonnull __nonnull
+#define nullable _Nullable
+#define nonnull _Nonnull
 
 #pragma clang assume_nonnull begin
 
@@ -63,7 +63,7 @@ static OUIBox *basicControls()
     return vbox;
 }
 
-static OUIBox *inputControls()
+static OUIBox *inputControls(OUIWindow *window)
 {
     OUIBox *hbox = [OUIBox horizontalBox];
     hbox.padded = true;
@@ -89,11 +89,10 @@ static OUIBox *inputControls()
             OUIButton *button = [OUIButton buttonWithLabel: @"  Open File  "];
             OUIEntry *entry = [OUIEntry entry];
             entry.readonly = true;
-            entry.onChanged = ^(OUIControl *) {
-                // [entry setText: [OUIDialog openFile: @"/" title: @"Open File"]];
+            entry.onChanged = ^(OUIControl *ctrl) {
+                OUIEntry *entry = (OUIEntry *)ctrl;
+                [entry setText: [OUIDialog openFile: window]];
             };
-
-            // [grid appendControl: button ];
 
             [vbox appendControl: grid];
         }
@@ -132,7 +131,7 @@ int main()
     [tab appendControl: basicControls() label: @"Basic Controls"];
     [tab setMargined: true atIndex: 0];
 
-    [tab appendControl: inputControls() label: @"Input Controls"];
+    [tab appendControl: inputControls(window) label: @"Input Controls"];
     [tab setMargined: true atIndex: 1];
 
     [tab appendControl: tables() label: @"Table Controls"];
