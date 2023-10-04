@@ -18,7 +18,7 @@ static void onChangedWrapper(uiFontButton *button, void *data)
 {
     if (!(self = [super init])) return nil;
     _control = uiControl(uiNewFontButton());
-    uiFontButtonOnChanged(uiFontButton(_control), onChangedWrapper, (__bridge void *)self);
+    uiFontButtonOnChanged(uiFontButton(_control), onChangedWrapper, (__bridge_retained void *)self);
     return self;
 }
 

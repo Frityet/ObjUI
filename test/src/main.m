@@ -1,6 +1,8 @@
-#include "ui.h"
 #import <ObjFW/OFString.h>
 #import <ObjFW/OFArray.h>
+#import <ObjFW/OFApplication.h>
+#import <ObjFW/OFKeyValueCoding.h>
+#import <ObjFW/OFDictionary.h>
 
 #import <ObjUI/OUI.h>
 #import <ObjUI/OUIDialog.h>
@@ -26,30 +28,29 @@
 
 #define nullable _Nullable
 #define nonnull _Nonnull
+#define auto __auto_type
 
 #pragma clang assume_nonnull begin
 
 static OUIBox *basicControls()
 {
-    OUIBox *vbox = [OUIBox verticalBox];
+    auto vbox = [OUIBox verticalBox];
     vbox.padded = true;
     {
-        OUIBox *hbox = [OUIBox horizontalBox];
+        auto hbox = [OUIBox horizontalBox];
         hbox.padded = true;
         {
             [hbox appendControl: [OUIButton buttonWithLabel: @"Button"]];
             [hbox appendControl: [OUICheckbox checkboxWithLabel: @"Checkbox"]];
         }
         [vbox appendControl: hbox];
-
         [vbox appendControl: [OUILabel labelWithText: @"This is a label.\nLabels can span multiple lines."]];
-
         [vbox appendControl: [OUISeperator horizontalSeperator]];
 
-        OUIGroup *group = [OUIGroup groupWithLabel: @"Entries"];
+        auto group = [OUIGroup groupWithLabel: @"Entries"];
         group.margined = true;
         {
-            OUIForm *entryForm = [OUIForm form];
+            auto entryForm = [OUIForm form];
             entryForm.padded = true;
             group.child = entryForm;
 
@@ -83,35 +84,35 @@ static OUIBox *inputControls(OUIWindow *window)
 
         vbox = [OUIBox verticalBox];
         vbox.padded = true;
-        {
-            OUIGrid *grid = [OUIGrid grid];
 
-            OUIButton *button = [OUIButton buttonWithLabel: @"  Open File  "];
-            OUIEntry *entry = [OUIEntry entry];
-            entry.readonly = true;
-            entry.onChanged = ^(OUIControl *ctrl) {
-                OUIEntry *entry = (OUIEntry *)ctrl;
-                [entry setText: [OUIDialog openFile: window]];
-            };
+        [vbox appendControl: [OUIComboBox comboBoxWithItems: @[@"Item 1", @"Item 2", @"Item 3"]]];
+        [vbox appendControl: [OUIEditableComboBox editableComboBoxWithItems: @[@"Item 1", @"Item 2", @"Item 3"]]];
+        [vbox appendControl: [OUISpinbox spinbox]];
 
-            [vbox appendControl: grid];
-        }
+        OUIButton *openFileButton = [OUIButton buttonWithLabel: @"Open File"];
+        openFileButton.onChanged = ^(OUIControl *control) {
+            auto button = (OUIButton *)control;
+            button.text = [OUIDialog openFileDialogForWindow: window];
+        };
+        [vbox appendControl: openFileButton];
+
         [hbox appendControl: vbox];
     }
     return hbox;
 }
+@interface App : OFObject<OFApplicationDelegate> @end
 
-int main()
+@implementation App
+
+- (void)applicationDidFinishLaunching: _
 {
-    //hehe wee wee
     [OUI oui];
-
-
-
-    OUIWindow *window = [OUIWindow windowWithTitle: @"" width: 256 height: 128 hasMenubar: false];
+    OUIWindow *window = [OUIWindow windowWithTitle: @"Oui - test" width: 256 height: 128 hasMenubar: false];
     window.margined = true;
-    window.onClosing = ^ {
-        [OUI quit];
+    window.onClosing = ^(OUIWindow *window) {
+        [window close];
+        // [OUI quit];
+        [OFApplication terminate];
         return 0;
     };
 
@@ -125,8 +126,14 @@ int main()
     [tab setMargined: true atIndex: 1];
 
     [window show];
-    [OUI main];
-    return 0;
+    [OUI asyncMain];
+    // [OUI main];
 }
 
+@end
+
+
 #pragma clang assume_nonnull end
+
+OF_APPLICATION_DELEGATE(App)
+

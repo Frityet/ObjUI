@@ -78,7 +78,7 @@ static void onChangedWrapper(uiEntry *entry, void *data)
 - (void)setOnChanged:(void (^)(OUIControl *))fn
 {
     self->onChanged = fn;
-    uiEntryOnChanged(uiEntry(_control), &onChangedWrapper, (__bridge void *)self);
+    uiEntryOnChanged(uiEntry(_control), &onChangedWrapper, (__bridge_retained void *)self);
 }
 
 - (void)setReadonly:(bool)readonly

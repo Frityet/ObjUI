@@ -33,7 +33,7 @@ static void onClickedWrapper(uiButton *button, void *data)
 - (void)setOnChanged:(void (^)(OUIControl *))onClicked
 {
     self->onChanged = onClicked;
-    uiButtonOnClicked(uiButton(_control), &onClickedWrapper, (__bridge void *)self);
+    uiButtonOnClicked(uiButton(_control), &onClickedWrapper, (__bridge_retained void *)self);
 }
 
 

@@ -34,7 +34,7 @@ static void onChangedWrapper(uiMenuItem *menuItem, uiWindow *window, void *data)
 - (void)setOnClicked:(void (^)(OUIMenuItem *))onChanged
 {
     _onClicked = onChanged;
-    uiMenuItemOnClicked(_menuItem, onChangedWrapper, (__bridge void *)self);
+    uiMenuItemOnClicked(_menuItem, onChangedWrapper, (__bridge_retained void *)self);
 }
 
 @end

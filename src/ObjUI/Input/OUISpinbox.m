@@ -43,7 +43,7 @@ static void onChangedWrapper(uiSpinbox *spinbox, void *data)
 - (void)setOnChanged: (void (^)(OUIControl *))fn
 {
     self->onChanged = fn;
-    uiSpinboxOnChanged(uiSpinbox(_control), &onChangedWrapper, (__bridge void *)self);
+    uiSpinboxOnChanged(uiSpinbox(_control), &onChangedWrapper, (__bridge_retained void *)self);
 }
 
 @end

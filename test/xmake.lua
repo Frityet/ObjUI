@@ -1,6 +1,6 @@
 --Config:
 local packages = {
-    "ObjFW-local",
+    "objfw-local",
     "libui"
 }
 
@@ -10,12 +10,9 @@ local mflags = {
     release = {},
     debug = {
         "-Wno-unused-function", "-Wno-unused-parameter", "-Wno-unused-variable",
-        -- "--analyze"
     },
     regular = {
         "-Wall", "-Wextra", "-Werror",
-
-        "-fexceptions", "-fobjc-exceptions", "-funwind-tables", "-fconstant-string-class=OFConstantString", "-Xclang", "-fno-constant-cfstrings", "-Xclang", "-fblocks", "-fobjc-arc", "-fobjc-arc-exceptions",
         "-Wno-unused-variable", "-Wno-unused-parameter",
     }
 }
@@ -24,9 +21,7 @@ local ldflags = {
     release = {},
     debug = {},
     regular = {
-        "-L/usr/local/lib", "-lobjfw",
-        "-lm", "-ldl", "-lpthread", "", "-fexceptions", "-Wl,-U,_NSFoundationVersionNumber",
-        "-Wl,-rpath,/usr/local/lib"
+
     }
 }
 
@@ -36,7 +31,7 @@ set_languages {
 
 add_rules("mode.debug", "mode.release")
 
-add_requires(packages)
+add_requires(packages, { configs = { shared = true } })
 
 target("ObjUI-test")
 do

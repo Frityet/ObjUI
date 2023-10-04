@@ -6,8 +6,8 @@
 
 @interface OUIWindow : OUIControl
 
-@property(nonatomic, setter=setOnClosing:) int (^onClosing)();
-@property(nonatomic, setter=setOnContentSizeChanged:) void (^onContentSizeChanged)(int, int);
+@property(nonatomic, setter=setOnClosing:) int (^onClosing)(OUIWindow *window);
+@property(nonatomic, setter=setOnContentSizeChanged:) void (^onContentSizeChanged)(OUIWindow *window, int, int);
 
 @property(nonatomic, setter=setResizable:) bool resizable;
 @property(nonatomic, setter=setFullscreen:) bool fullscreen;

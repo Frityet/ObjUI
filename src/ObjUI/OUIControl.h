@@ -6,10 +6,10 @@
     @protected uiControl *_control;
 }
 
+@property(readonly) uiControl *control;
 @property(nonatomic, setter=setEnabled:) bool enabled;
 
 - (void)show;
-- (uiControl *)control;
 - (bool)isVisible;
 - (void)dealloc;
 

@@ -5,5 +5,13 @@
     "explorer.fileNesting.patterns": {
         "*.h" : "${capture}.m"
     },
-    "licenser.license": "MIT"
+    "licenser.license": "MIT",
+    "Lua.workspace.library": [
+        "/usr/local/share/lua/5.4/",
+        "/usr/local/share/lua/5.1/",
+        "/usr/local/lib/lua/5.1/",
+        "/Users/frityet/Library/Application Support/Code/User/globalStorage/sumneko.lua/addonManager/addons/xmake/module/library"
+    ],
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.workspace.checkThirdParty": false
 }

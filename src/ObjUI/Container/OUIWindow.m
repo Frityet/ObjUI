@@ -1,21 +1,25 @@
 #include "OUIWindow.h"
 
 #import <ObjFW/OFString.h>
+#import <ObjFW/OFValue.h>
+#import <ObjFW/OFBlock.h>
 
 #include <ui.h>
 
-static int onCloseWrapper(uiWindow *window, void *data)
+#define auto __auto_type
+
+static int onCloseWrapper(uiWindow *_, void *data)
 {
-    int (^onClose)() = (__bridge int (^)())data;
-    return onClose();
+    OUIWindow *window = (__bridge OUIWindow *)data;
+    return window.onClosing(window);
 }
 
-static void onContentSizeChangedWrapper(uiWindow *window, void *data)
+static void onContentSizeChangedWrapper(uiWindow *handle, void *data)
 {
-    void (^onContentSizeChanged)(int, int) = (__bridge void (^)(int, int))data;
+    auto window = (__bridge OUIWindow *)data;
     int width, height;
-    uiWindowContentSize(window, &width, &height);
-    onContentSizeChanged(width, height);
+    uiWindowContentSize(handle, &width, &height);
+    window.onContentSizeChanged(window, width, height);
 }
 
 @implementation OUIWindow
@@ -23,16 +27,16 @@ static void onContentSizeChangedWrapper(uiWindow *window, void *data)
 + (instancetype)windowWithTitle:(OFString *)title width:(int)width height:(int)height hasMenubar:(bool)hasMenuBar
 { return [[self alloc] initWithTitle:title width:width height:height hasMenubar:hasMenuBar]; }
 
-- (void)setOnClosing:(int (^)())onClosing
+- (void)setOnClosing:(int (^)(OUIWindow *))onClosing
 {
     _onClosing = onClosing;
-    uiWindowOnClosing((uiWindow *)_control, &onCloseWrapper, (__bridge void *)onClosing);
+    uiWindowOnClosing(uiWindow(self->_control), onCloseWrapper, (__bridge_retained void *)(self));
 }
 
-- (void)setOnContentSizeChanged:(void (^)(int, int))onContentSizeChanged
+- (void)setOnContentSizeChanged:(void (^)(OUIWindow *, int, int))onContentSizeChanged
 {
     _onContentSizeChanged = onContentSizeChanged;
-    uiWindowOnContentSizeChanged(uiWindow(_control), &onContentSizeChangedWrapper, (__bridge void *)onContentSizeChanged);
+    uiWindowOnContentSizeChanged(uiWindow(_control), &onContentSizeChangedWrapper, (__bridge_retained void *)self);
 }
 
 - (void)setContentSize:(int)width height:(int)height

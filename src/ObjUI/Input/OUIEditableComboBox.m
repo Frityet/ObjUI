@@ -30,7 +30,7 @@ static void onChangedWrapper(uiEditableCombobox *control, void *data)
 - (void)setOnChanged:(void (^)(OUIControl *))fn
 {
     onChanged = fn;
-    uiEditableComboboxOnChanged(uiEditableCombobox(_control), &onChangedWrapper, (__bridge void *)self);
+    uiEditableComboboxOnChanged(uiEditableCombobox(_control), &onChangedWrapper, (__bridge_retained void *)self);
 }
 
 - (void)setText:(OFString *)text

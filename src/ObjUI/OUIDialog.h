@@ -6,18 +6,18 @@
 @interface OUIDialog : OFObject
 
 
-+ (OFString *)openFile: (OUIWindow *)parent;
-+ (OFString *)saveFile: (OUIWindow *)parent;
++ (OFString *)openFileDialogForWindow: (OUIWindow *)parent;
++ (OFString *)saveFileDialogForWindow: (OUIWindow *)parent;
 
-+ (OFString *)openDirectory: (OUIWindow *)parent;
++ (OFString *)openDirectoryDialogForWindow: (OUIWindow *)parent;
 
-+ (void)messageBoxWithWindow: (OUIWindow *)parent
-                       title: (OFString *)title
-                     message: (OFString *)message;
++ (void)messageBoxForWindow: (OUIWindow *)parent
+                      title: (OFString *)title
+                    message: (OFString *)message;
 
-+ (void)errorBoxWithWindow: (OUIWindow *)parent
-                     title: (OFString *)title
-                   message: (OFString *)message;
++ (void)errorBoxForWindow: (OUIWindow *)parent
+                    title: (OFString *)title
+                  message: (OFString *)message;
 
 @end
 

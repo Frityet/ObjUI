@@ -43,7 +43,7 @@ static void onChangedWrapper(uiSlider *s, void *data)
 - (void)setOnChanged: (void (^)(OUIControl *))fn
 {
     self->onChanged = fn;
-    uiSliderOnChanged(uiSlider(_control), &onChangedWrapper, (__bridge void *)self);
+    uiSliderOnChanged(uiSlider(_control), &onChangedWrapper, (__bridge_retained void *)self);
 }
 
 @end

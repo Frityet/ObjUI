@@ -17,7 +17,7 @@ static void onChangedWrapper(uiColorButton *button, void *data)
 {
     if (!(self = [super init])) return nil;
     _control = uiControl(uiNewColorButton());
-    uiColorButtonOnChanged(uiColorButton(_control), onChangedWrapper, (__bridge void *)self);
+    uiColorButtonOnChanged(uiColorButton(_control), onChangedWrapper, (__bridge_retained void *)self);
     return self;
 }
 

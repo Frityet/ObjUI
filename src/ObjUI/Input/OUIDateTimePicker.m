@@ -69,7 +69,7 @@ static void onChangedWrapper(uiDateTimePicker *picker, void *data)
 - (void)setOnChanged: (void (^)(OUIControl *))fn
 {
     self->onChanged = fn;
-    uiDateTimePickerOnChanged(uiDateTimePicker(_control), onChangedWrapper, (__bridge void *)self);
+    uiDateTimePickerOnChanged(uiDateTimePicker(_control), onChangedWrapper, (__bridge_retained void *)self);
 }
 
 @end

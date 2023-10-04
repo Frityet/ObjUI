@@ -88,7 +88,7 @@ static void onChangedWrapper(uiCombobox *combobox, void *data)
 - (void)setOnChanged:(void (^)(OUIControl *))fn
 {
     self->onChanged = fn;
-    uiComboboxOnSelected(uiCombobox(_control), onChangedWrapper, (__bridge void *)self);
+    uiComboboxOnSelected(uiCombobox(_control), onChangedWrapper, (__bridge_retained void *)self);
 }
 
 @end
