@@ -1,7 +1,7 @@
 --Config:
 local packages = {
     "objfw",
-    "libui",
+    "libui master",
 }
 
 local sanitizers = { }
