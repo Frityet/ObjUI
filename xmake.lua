@@ -1,9 +1,3 @@
---Config:
-local packages = {
-    "objfw",
-    "libui master",
-}
-
 local sanitizers = { }
 
 local mflags = {
@@ -31,12 +25,12 @@ set_languages {
 
 add_rules("mode.debug", "mode.release")
 
-add_requires(packages, { configs = { shared = true } })
+add_requires("objfw", "libui master", { configs = { shared = is_kind("shared") } })
 
 target("ObjUI")
 do
-    set_kind("shared")
-    add_packages(packages)
+    set_kind(is_kind("shared") and "shared" or "static")
+    add_packages("objfw", "libui")
 
     add_files("src/**.m")
     add_headerfiles("src/**.h")
