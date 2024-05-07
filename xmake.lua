@@ -31,7 +31,7 @@ set_languages {
 
 add_rules("mode.debug", "mode.release")
 
-add_requires(packages, { configs = { shared = is_kind("shared") } })
+add_requires(packages, { configs = { shared = true } })
 
 target("ObjUI")
 do
