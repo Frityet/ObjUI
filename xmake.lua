@@ -33,7 +33,9 @@ do
     add_packages("objfw", "libui")
 
     add_files("src/**.m")
-    add_headerfiles("src/**.h")
+    add_headerfiles("src/(ObjUI/*.h)")
+    add_headerfiles("src/(ObjUI/Container/*.h)")
+    add_headerfiles("src/(ObjUI/Input/*.h)")
 
     add_includedirs("src/", { public = true })
 
