@@ -106,12 +106,11 @@ static OUIBox *inputControls(OUIWindow *window)
 
 - (void)applicationDidFinishLaunching: _
 {
-    [OUI oui];
     OUIWindow *window = [OUIWindow windowWithTitle: @"Oui - test" width: 256 height: 128 hasMenubar: false];
     window.margined = true;
     window.onClosing = ^(OUIWindow *window) {
         [window close];
-        // [OUI quit];
+        [OUI quit];
         [OFApplication terminate];
         return 0;
     };
@@ -126,8 +125,9 @@ static OUIBox *inputControls(OUIWindow *window)
     [tab setMargined: true atIndex: 1];
 
     [window show];
-    [OUI asyncMain];
-    // [OUI main];
+    // [OUI asyncMain];
+    [OUI main];
+
 }
 
 @end

@@ -12,9 +12,7 @@
 
 @interface OUI : OFObject
 
-+ (void) oui;
 + (void) main;
-+ (void) asyncMain;
 + (void) quit;
 
 + (void) onShouldQuit: (bool (^)())onShouldQuit;

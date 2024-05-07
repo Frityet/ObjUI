@@ -1,6 +1,6 @@
 --Config:
 local packages = {
-    "objfw-local",
+    "objfw",
     "libui"
 }
 

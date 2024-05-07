@@ -37,7 +37,7 @@ static int onShouldQuitWrapper(void *data)
 
 @implementation OUI
 
-+ (void)oui
++ (void)initialize
 {
     const char *err = uiInit(&(uiInitOptions){0});
 
@@ -48,36 +48,15 @@ static int onShouldQuitWrapper(void *data)
     // atexit(uiUninit);
 }
 
-// + (void)initialize
-// {
-//     const char *err = uiInit(&(uiInitOptions){0});
-//     if (err)
-//         @throw [OUIInitalizationFailedException exceptionWithError: err];
-
-
-//     // atexit(uiUninit);
-// }
 
 + (void)main
 {
     uiMain();
 }
 
-+ (void)asyncMain
-{
-    static OFThread *uiThread;
-    uiThread = [OFThread threadWithBlock: ^{
-        [OFStdOut writeLine: @"uiThread started"];
-        uiMain();
-        return (id)nil;
-    }];
-
-    [uiThread start];
-}
-
 + (void)quit
 {
-    // uiQuit();
+    uiQuit();
 }
 
 + (void)onShouldQuit:(bool (^)(void))onShouldQuit

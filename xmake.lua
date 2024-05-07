@@ -1,14 +1,10 @@
-includes("package.lua")
-
 --Config:
 local packages = {
-    "objfw-local",
+    "objfw",
     "libui",
 }
 
 local sanitizers = { }
-
-
 
 local mflags = {
     release = {},
@@ -35,7 +31,7 @@ set_languages {
 
 add_rules("mode.debug", "mode.release")
 
-add_requires(packages, { configs = { shared = true } })
+add_requires(packages, { configs = { shared = is_kind("shared") } })
 
 target("ObjUI")
 do
