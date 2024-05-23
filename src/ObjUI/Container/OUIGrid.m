@@ -6,13 +6,7 @@
 { return [[self alloc] init]; }
 
 - (instancetype)init
-{
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewGrid());
-
-    return self;
-}
+{ return [super initFromControl: uiControl(uiNewGrid())]; }
 
 - (void)appendControl: (OUIControl *)control
                  left: (int)left
@@ -24,5 +18,11 @@
                hAlign: (int)hAlign
                vAlign: (int)vAlign
 { uiGridAppend(uiGrid(_control),  control.control, left, top, xspan, yspan, hexpand, vexpand, hAlign, vAlign); }
+
+- (bool)padded
+{ return uiGridPadded(uiGrid(_control)); }
+
+- (void)setPadded: (bool)padded
+{ uiGridSetPadded(uiGrid(_control), padded); }
 
 @end

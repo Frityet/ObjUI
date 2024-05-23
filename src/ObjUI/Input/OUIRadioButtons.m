@@ -2,17 +2,12 @@
 
 @implementation OUIRadioButtons
 
-@synthesize onChanged;
-
 + (instancetype)radioButtonsWithLabels: (OFArray<OFString *> *)items
 { return [[self alloc] initWithLabels: items]; }
 
-- (instancetype)initWithLabels: (OFArray<OFString *> *)items
+- (instancetype)initWithLabels : (OFArray<OFString *> *)items
 {
-    self = [super init];
-    if (self == nil) return nil;
-
-    _control = uiControl(uiNewRadioButtons());
+    self = [super initFromControl: uiControl(uiNewRadioButtons()) onChangedSetter: uiRadioButtonsOnSelected];
 
     for (OFString *item in items)
         uiRadioButtonsAppend(uiRadioButtons(_control), item.UTF8String);

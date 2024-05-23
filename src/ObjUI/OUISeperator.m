@@ -3,16 +3,14 @@
 @implementation OUISeperator
 
 + (instancetype)horizontalSeperator
-{ return [[self alloc] initWithOrientation: 0]; }
+{ return [[self alloc] initWithVerticalOrientation: false]; }
 
 + (instancetype)verticalSeperator
-{ return [[self alloc] initWithOrientation: 1]; }
+{ return [[self alloc] initWithVerticalOrientation: true]; }
 
-- (instancetype)initWithOrientation: (bool)vertical
+- (instancetype)initWithVerticalOrientation: (bool)vertical
 {
-    if (!(self = [super init])) return nil;
-    _control = uiControl(uiNewHorizontalSeparator());
-    return self;
+    return [super initFromControl: uiControl(vertical ? uiNewVerticalSeparator() : uiNewHorizontalSeparator())];
 }
 
 @end

@@ -6,13 +6,12 @@
 
 #import "OUIInput.h"
 
-@interface OUICheckbox : OUIControl<OUIInput>
+@interface OUICheckbox : OUIInput
 
-@property(nonatomic, setter=setText:) OFString *text;
-@property(nonatomic, setter=setChecked:) bool checked;
+@property OFString *text;
+@property bool checked;
 
 + (instancetype)checkboxWithLabel: (OFString *)text;
-
 - (instancetype)initWithLabel: (OFString *)text;
 
 @end

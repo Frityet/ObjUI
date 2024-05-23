@@ -1,14 +1,6 @@
 #include "OUISpinbox.h"
 
-static void onChangedWrapper(uiSpinbox *spinbox, void *data)
-{
-    OUISpinbox *self = (__bridge OUISpinbox *)data;
-    self.onChanged(self);
-}
-
 @implementation OUISpinbox
-
-@synthesize onChanged;
 
 + (instancetype)spinbox
 { return [[self alloc] init]; }
@@ -18,32 +10,19 @@ static void onChangedWrapper(uiSpinbox *spinbox, void *data)
 
 - (instancetype)init
 {
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewSpinbox(0, 100));
-
-    return self;
+    return [self initWithMin: 0 max: 100];
 }
 
 - (instancetype)initWithMin: (int)min max: (int)max
 {
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewSpinbox(min, max));
-
-    return self;
+    return [super initFromControl: uiControl(uiNewSpinbox(min, max)) onChangedSetter: uiSpinboxOnChanged];
 }
+
+
+- (int)value
+{ return uiSpinboxValue(uiSpinbox(_control)); }
 
 - (void)setValue: (int)value
 { uiSpinboxSetValue(uiSpinbox(_control), value); }
-
-- (int)getValue
-{ return uiSpinboxValue(uiSpinbox(_control)); }
-
-- (void)setOnChanged: (void (^)(OUIControl *))fn
-{
-    self->onChanged = fn;
-    uiSpinboxOnChanged(uiSpinbox(_control), &onChangedWrapper, (__bridge_retained void *)self);
-}
 
 @end

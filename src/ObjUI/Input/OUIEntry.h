@@ -8,6 +8,7 @@
 #import "OUIInput.h"
 
 enum OUIEntryType {
+    OUIEntryTypeUnknown,
     OUIEntryTypeNormal,
     OUIEntryTypePassword,
     OUIEntryTypeSearch,
@@ -15,10 +16,10 @@ enum OUIEntryType {
     OUIEntryTypeNonWrappingMultiline,
 };
 
-@interface OUIEntry : OUIControl<OUIInput>
+@interface OUIEntry : OUIInput
 
-@property(nonatomic, setter=setText:, getter=getText) OFString *text;
-@property(nonatomic, setter=setReadonly:) bool readonly;
+@property OFString *text;
+@property bool readonly;
 @property(readonly) enum OUIEntryType type;
 
 + (instancetype)entry;

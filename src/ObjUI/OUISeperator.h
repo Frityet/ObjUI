@@ -9,6 +9,6 @@
 + (instancetype)horizontalSeperator;
 + (instancetype)verticalSeperator;
 
-- (instancetype)initWithOrientation: (bool)vertical;
+- (instancetype)initWithVerticalOrientation: (bool)vertical;
 
 @end

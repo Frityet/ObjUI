@@ -10,10 +10,10 @@
     @private uiMenuItem *_menuItem;
 }
 
-@property (nonatomic, setter=setEnabled:, getter=isEnabled) bool enabled;
-@property (nonatomic, setter=setChecked:, getter=isChecked) bool checked;
-@property (nonatomic, setter=setOnClicked:) void (^onClicked)(OUIMenuItem *sender);
-@property (nonatomic, readonly) OFString *title;
+@property bool enabled;
+@property bool checked;
+@property void (^onClicked)(OUIMenuItem *sender);
+@property(readonly) OFString *title;
 
 + (instancetype)menuItemWithHandle: (uiMenuItem *)menuItem title: (OFString *)title;
 

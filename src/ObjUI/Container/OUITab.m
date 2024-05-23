@@ -6,17 +6,10 @@
 { return [[self alloc] init]; }
 
 - (instancetype)init
-{
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewTab());
-
-    return self;
-}
+{ return [super initFromControl: uiControl(uiNewTab())]; }
 
 - (void)appendControl:(OUIControl *)control label: (OFString *)name
 { uiTabAppend(uiTab(_control), name.UTF8String, control.control); }
-
 
 - (void)insertAtIndex:(int)index with:(OUIControl *)control label:(OFString *)name
 { uiTabInsertAt(uiTab(_control), name.UTF8String, index, control.control); }

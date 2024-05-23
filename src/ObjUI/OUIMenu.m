@@ -3,10 +3,13 @@
 static void onChangedWrapper(uiMenuItem *menuItem, uiWindow *window, void *data)
 {
     OUIMenuItem *item = (__bridge OUIMenuItem *)data;
-    item.onClicked(item);
+    item.onClicked ? item.onClicked(item) : 0;
 }
 
 @implementation OUIMenuItem
+
+@synthesize enabled = _enabled;
+@synthesize onClicked = _onClicked;
 
 + (instancetype)menuItemWithHandle:(uiMenuItem *)menuItem title:(OFString *)title
 { return [[self alloc] initWithHandle: menuItem title: title]; }
@@ -19,18 +22,24 @@ static void onChangedWrapper(uiMenuItem *menuItem, uiWindow *window, void *data)
     return self;
 }
 
+- (bool)enabled
+{ return _enabled; }
+
 - (void)setEnabled:(bool)enabled
 {
     _enabled = enabled;
     enabled ? uiMenuItemEnable(_menuItem) : uiMenuItemDisable(_menuItem);
 }
 
+- (bool)checked
+{ return uiMenuItemChecked(_menuItem); }
 - (void)setChecked:(bool)checked
 {
-    _checked = checked;
-    uiMenuItemSetChecked(_menuItem, _checked);
+    uiMenuItemSetChecked(_menuItem, checked);
 }
 
+- (void (^)(OUIMenuItem *))onClicked
+{ return _onClicked; }
 - (void)setOnClicked:(void (^)(OUIMenuItem *))onChanged
 {
     _onClicked = onChanged;

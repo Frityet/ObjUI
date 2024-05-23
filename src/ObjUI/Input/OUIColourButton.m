@@ -1,30 +1,16 @@
 #include "OUIColourButton.h"
-
-static void onChangedWrapper(uiColorButton *button, void *data)
-{
-    OUIColourButton *self = (__bridge OUIColourButton *)data;
-    self.onChanged(self);
-}
-
 @implementation OUIColourButton
 
-@synthesize onChanged;
-
-+ (instancetype)colourButton
++ (instancetype)button
 { return [[self alloc] init];}
 
 - (instancetype)init
-{
-    if (!(self = [super init])) return nil;
-    _control = uiControl(uiNewColorButton());
-    uiColorButtonOnChanged(uiColorButton(_control), onChangedWrapper, (__bridge_retained void *)self);
-    return self;
-}
+{ return [super initFromControl: uiControl(uiNewColorButton()) onChangedSetter: uiColorButtonOnChanged]; }
 
 - (void)setColour: (OUIColour)colour
 { uiColorButtonSetColor(uiColorButton(_control), colour.red, colour.green, colour.blue, colour.alpha); }
 
-- (OUIColour)getColour
+- (OUIColour)colour
 {
     double red, green, blue, alpha;
     uiColorButtonColor(uiColorButton(_control), &red, &green, &blue, &alpha);

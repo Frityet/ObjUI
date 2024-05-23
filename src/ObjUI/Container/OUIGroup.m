@@ -2,28 +2,39 @@
 
 @implementation OUIGroup
 
+@synthesize child = _child;
+
 + (instancetype)groupWithLabel:(OFString *)title
 { return [[self alloc] initWithLabel:title]; }
 
 - (instancetype)initWithLabel:(OFString *)title
 {
-    if ((self = [super init]) == nil) return nil;
+    return [super initFromControl: uiControl(uiNewGroup(title.UTF8String))];
+}
 
-    _control = uiControl(uiNewGroup(title.UTF8String));
-
-    return self;
+- (OFString *)title
+{
+    return [OFString stringWithUTF8String: uiGroupTitle(uiGroup(_control))];
 }
 
 - (void)setTitle:(OFString *)title
 {
     uiGroupSetTitle(uiGroup(_control), title.UTF8String);
-    _title = title;
+}
+
+- (bool)margined
+{
+    return uiGroupMargined(uiGroup(_control));
 }
 
 - (void)setMargined:(bool)margined
 {
     uiGroupSetMargined(uiGroup(_control), margined);
-    _margined = margined;
+}
+
+- (OUIControl *)child
+{
+    return _child;
 }
 
 - (void)setChild:(OUIControl *)child

@@ -7,7 +7,7 @@
 
 @interface OUIProgressBar : OUIControl
 
-@property (nonatomic, setter=setProgress:, getter=getProgress) int progress;
+@property int progress;
 
 + (instancetype)progressBar;
 

@@ -13,4 +13,7 @@
 - (bool)isVisible;
 - (void)dealloc;
 
+- (instancetype)initFromControl:(uiControl *)control;
++ (instancetype)fromControl:(uiControl *)control;
+
 @end

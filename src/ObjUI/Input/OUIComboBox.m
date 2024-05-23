@@ -2,23 +2,12 @@
 
 @implementation OUIComboBox
 
-static void onChangedWrapper(uiCombobox *combobox, void *data)
-{
-    OUIComboBox *self = (__bridge OUIComboBox *)data;
-    self.onChanged(self);
-}
-
-@synthesize onChanged;
-
 + (instancetype)comboBoxWithItems:(OFArray<OFString *> *)items
 { return [[self alloc] initWithItems:items]; }
 
 - (instancetype)initWithItems:(OFArray<OFString *> *)items
 {
-    self = [super init];
-    if (self == nil) return nil;
-
-    _control = uiControl(uiNewCombobox());
+    self = [super initFromControl: uiControl(uiNewCombobox()) onChangedSetter: uiComboboxOnSelected];
     _items = [items mutableCopy];
 
     for (OFString *item in items) {
@@ -28,13 +17,26 @@ static void onChangedWrapper(uiCombobox *combobox, void *data)
     return self;
 }
 
-- (void)setSelected:(int)selected
+- (instancetype)initFromControl:(uiControl *)control
 {
-    uiComboboxSetSelected(uiCombobox(_control), selected);
-    _selectedIndex = selected;
+    self = [super initFromControl: control];
+    _items = [OFMutableArray array];
+    return self;
 }
 
-- (void)setItems:(OFArray<OFString *> *)items
+- (int)itemCount
+{ return uiComboboxNumItems(uiCombobox(_control)); }
+
+- (int)selectedIndex
+{ return uiComboboxSelected(uiCombobox(_control)); }
+
+- (void)setSelectedIndex: (int)selected
+{ uiComboboxSetSelected(uiCombobox(_control), selected); }
+
+- (OFArray<OFString *> *)items
+{ return _items; }
+
+- (void)setItems: (OFArray<OFString *> *)items
 {
     [self clear];
     for (OFString *item in items) {
@@ -61,15 +63,6 @@ static void onChangedWrapper(uiCombobox *combobox, void *data)
     [_items removeObjectAtIndex:index];
 }
 
-- (int)getSelectedIndex
-{
-    _selectedIndex = uiComboboxSelected(uiCombobox(_control));
-    return _selectedIndex;
-}
-
-- (int)itemCount
-{ return uiComboboxNumItems(uiCombobox(_control)); }
-
 - (OFString *)selected
 {
     int sel = self.selectedIndex;
@@ -83,12 +76,6 @@ static void onChangedWrapper(uiCombobox *combobox, void *data)
     while (self.itemCount > 0) {
         uiComboboxDelete(uiCombobox(_control), 0);
     }
-}
-
-- (void)setOnChanged:(void (^)(OUIControl *))fn
-{
-    self->onChanged = fn;
-    uiComboboxOnSelected(uiCombobox(_control), onChangedWrapper, (__bridge_retained void *)self);
 }
 
 @end

@@ -1,44 +1,34 @@
 #include "OUICheckbox.h"
 
-static void onToggledWrapper(uiCheckbox *checkbox, void *data)
-{
-    OUICheckbox *self = (__bridge OUICheckbox *)data;
-    self.onChanged(self);
-}
-
 @implementation OUICheckbox
-
-@synthesize onChanged;
 
 + (instancetype)checkboxWithLabel: (OFString *)text
 { return [[self alloc] initWithLabel: text]; }
 
 - (instancetype)initWithLabel: (OFString *)text
 {
-    self = [super init];
-    if (self == nil) return nil;
+    return [super initFromControl: uiControl(uiNewCheckbox(text.UTF8String)) onChangedSetter: uiCheckboxOnToggled];
+}
 
-    _control = uiControl(uiNewCheckbox(text.UTF8String));
 
-    return self;
+- (OFString *)text
+{
+    return [OFString stringWithUTF8String: uiCheckboxText(uiCheckbox(_control))];
 }
 
 - (void)setText: (OFString *)text
 {
     uiCheckboxSetText(uiCheckbox(_control), text.UTF8String);
-    _text = text;
+}
+
+- (bool)checked
+{
+    return uiCheckboxChecked(uiCheckbox(_control));
 }
 
 - (void)setChecked: (bool)checked
 {
     uiCheckboxSetChecked(uiCheckbox(_control), checked);
-    _checked = checked;
-}
-
-- (void)setOnChanged: (void (^)(OUIControl *))onToggled
-{
-    self->onChanged = onToggled;
-    uiCheckboxOnToggled(uiCheckbox(_control), &onToggledWrapper, (__bridge_retained void *)self);
 }
 
 @end

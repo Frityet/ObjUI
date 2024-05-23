@@ -1,5 +1,7 @@
 #include "OUIControl.h"
 
+#import <ObjFW/OFNotImplementedException.h>
+
 @implementation OUIControl
 
 - (void)show
@@ -18,5 +20,17 @@
 
 - (void)dealloc
 { /*uiControlDestroy(self.control);*/ }
+
+- (instancetype)initFromControl:(uiControl *)control
+{
+    self = [super init];
+
+    self->_control = control;
+
+    return self;
+}
+
++ (instancetype)fromControl:(uiControl *)control
+{ return [[self alloc] initFromControl:control]; }
 
 @end

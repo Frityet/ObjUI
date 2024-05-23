@@ -10,15 +10,16 @@
 #import "OUIInput.h"
 
 enum OUIDateTimePickerType {
-    OUIDateTimePickerDate = 1 << 0,
-    OUIDateTimePickerTime = 1 << 1,
-    OUIDateTimePickerDateTime = OUIDateTimePickerDate | OUIDateTimePickerTime,
+    OUIDateTimePickerUnknown    = 0,
+    OUIDateTimePickerDate       = 1 << 0,
+    OUIDateTimePickerTime       = 1 << 1,
+    OUIDateTimePickerDateTime   = OUIDateTimePickerDate | OUIDateTimePickerTime,
 };
 
-@interface OUIDateTimePicker: OUIControl<OUIInput>
+@interface OUIDateTimePicker: OUIInput
 
-@property (nonatomic, readonly) enum OUIDateTimePickerType type;
-@property (nonatomic, setter=setDate:, getter=getDate) OFDate *date;
+@property(readonly) enum OUIDateTimePickerType type;
+@property OFDate *date;
 
 + (instancetype)datePicker;
 + (instancetype)timePicker;

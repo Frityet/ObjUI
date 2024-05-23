@@ -6,16 +6,13 @@
 { return [[self alloc] init];}
 
 - (instancetype)init
-{
-    if (!(self = [super init])) return nil;
-    _control = uiControl(uiNewProgressBar());
-    return self;
-}
+{ return [super initFromControl: uiControl(uiNewProgressBar())]; }
+
+- (int)progress
+{ return uiProgressBarValue(uiProgressBar(_control)); }
 
 - (void)setProgress: (int)progress
 { uiProgressBarSetValue(uiProgressBar(_control), progress); }
 
-- (int)getProgress
-{ return uiProgressBarValue(uiProgressBar(_control)); }
 
 @end

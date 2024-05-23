@@ -2,16 +2,8 @@
 
 #import <ObjFW/OFInvalidArgumentException.h>
 
-static void onChangedWrapper(uiEntry *entry, void *data)
-{
-    OUIEntry *self = (__bridge OUIEntry *)data;
-    self.text = [OFString stringWithUTF8String:uiEntryText(entry)];
-    self.onChanged(self);
-}
 
 @implementation OUIEntry
-
-@synthesize onChanged;
 
 + (instancetype)entry
 { return [[self alloc] init]; }
@@ -29,62 +21,57 @@ static void onChangedWrapper(uiEntry *entry, void *data)
 { return [[self alloc] initWithType: OUIEntryTypeNonWrappingMultiline]; }
 
 
-
 - (instancetype)init
 {
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewEntry());
-
-    return self;
+    return [super initFromControl: uiControl(uiNewEntry()) onChangedSetter: uiEntryOnChanged];
 }
 
 - (instancetype)initWithType:(enum OUIEntryType)type
 {
-    if ((self = [super init]) == nil) return nil;
-
+    uiControl *control;
     switch (type) {
         case OUIEntryTypePassword:
-            _control = uiControl(uiNewPasswordEntry());
+            control = uiControl(uiNewPasswordEntry());
             break;
         case OUIEntryTypeSearch:
-            _control = uiControl(uiNewSearchEntry());
+            control = uiControl(uiNewSearchEntry());
             break;
         case OUIEntryTypeMultiline:
-            _control = uiControl(uiNewMultilineEntry());
+            control = uiControl(uiNewMultilineEntry());
             break;
         case OUIEntryTypeNonWrappingMultiline:
-            _control = uiControl(uiNewNonWrappingMultilineEntry());
+            control = uiControl(uiNewNonWrappingMultilineEntry());
             break;
         default:
             @throw [OFInvalidArgumentException exception];
             break;
     }
-
+    self = [super initFromControl: control onChangedSetter: uiEntryOnChanged];
+    _type = type;
     return self;
 }
+
+- (instancetype)initFromControl:(uiControl *)control
+{
+    self = [super initFromControl: control];
+    _type = OUIEntryTypeUnknown;
+    return self;
+}
+
+
+- (OFString *)text
+{
+    return [OFString stringWithUTF8String: uiEntryText(uiEntry(_control))];
+}
+
 
 - (void)setText:(OFString *)text
 { uiEntrySetText(uiEntry(_control), text.UTF8String); }
 
-- (OFString *)getText
-{
-    char *txt = uiEntryText(uiEntry(_control));
-    OFString *ret = [OFString stringWithUTF8String: txt];
-    uiFreeText(txt);
-    return ret;
-}
+- (bool)readonly
+{ return uiEntryReadOnly(uiEntry(_control)); }
 
-- (void)setOnChanged:(void (^)(OUIControl *))fn
-{
-    self->onChanged = fn;
-    uiEntryOnChanged(uiEntry(_control), &onChangedWrapper, (__bridge_retained void *)self);
-}
-
-- (void)setReadonly:(bool)readonly
-{
-    uiEntrySetReadOnly(uiEntry(_control), readonly);
-    _readonly = readonly;
-}
+- (void)setReadonly: (bool)readonly
+{ uiEntrySetReadOnly(uiEntry(_control), readonly); }
 
 @end

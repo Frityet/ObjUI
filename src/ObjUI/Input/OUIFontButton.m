@@ -1,25 +1,15 @@
 #include "OUIFontButton.h"
 #include "ui.h"
 
-static void onChangedWrapper(uiFontButton *button, void *data)
-{
-    OUIFontButton *self = (__bridge OUIFontButton *)data;
-    self.onChanged(self);
-}
 
 @implementation OUIFontButton
-
-@synthesize onChanged;
 
 + (instancetype)fontButton
 { return [[self alloc] init];}
 
 - (instancetype)init
 {
-    if (!(self = [super init])) return nil;
-    _control = uiControl(uiNewFontButton());
-    uiFontButtonOnChanged(uiFontButton(_control), onChangedWrapper, (__bridge_retained void *)self);
-    return self;
+    return [super initFromControl: uiControl(uiNewFontButton()) onChangedSetter: uiFontButtonOnChanged];
 }
 
 - (OUIFont)font

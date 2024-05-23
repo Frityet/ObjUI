@@ -6,7 +6,7 @@
 
 @interface OUIGrid : OUIControl
 
-@property(nonatomic, setter=setPadded:) bool padded;
+@property bool padded;
 
 + (instancetype)grid;
 

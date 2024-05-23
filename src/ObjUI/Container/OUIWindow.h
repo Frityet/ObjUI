@@ -6,19 +6,19 @@
 
 @interface OUIWindow : OUIControl
 
-@property(nonatomic, setter=setOnClosing:) int (^onClosing)(OUIWindow *window);
-@property(nonatomic, setter=setOnContentSizeChanged:) void (^onContentSizeChanged)(OUIWindow *window, int, int);
+@property(setter=setOnClosing:) int (^onClosing)(OUIWindow *window);
+@property(setter=setOnContentSizeChanged:) void (^onContentSizeChanged)(OUIWindow *window, int, int);
 
-@property(nonatomic, setter=setResizable:) bool resizable;
-@property(nonatomic, setter=setFullscreen:) bool fullscreen;
-@property(nonatomic, setter=setBorderless:) bool borderless;
-@property(nonatomic, setter=setMargined:) bool margined;
+@property bool resizable;
+@property bool fullscreen;
+@property bool borderless;
+@property bool margined;
 
-@property(nonatomic, setter=setTitle:) OFString *title;
-@property(nonatomic, setter=setContentSize:) int width;
-@property(nonatomic, setter=setContentSize:) int height;
+@property OFString *title;
+@property(setter=setContentSize:)int width;
+@property(setter=setContentSize:)int height;
 
-@property(nonatomic, setter=setChild:) OUIControl *child;
+@property OUIControl *child;
 
 
 + (instancetype)windowWithTitle: (OFString *)title width: (int)width height: (int)height hasMenubar: (bool)hasMenuBar;

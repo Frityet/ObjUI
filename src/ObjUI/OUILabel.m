@@ -7,10 +7,19 @@
 
 - (instancetype)initWithText:(OFString *)text
 {
-
-    if ((self = [super init]) == nil) return nil;
+    self = [super init];
 
     _control = uiControl(uiNewLabel(text.UTF8String));
+
+    return self;
+}
+
+- (instancetype)initFromControl:(uiControl *)control
+{
+    uiLabel *label = uiLabel(control);
+    self = [super initFromControl: control];
+
+    _text = [OFString stringWithUTF8String: uiLabelText(label)];
 
     return self;
 }

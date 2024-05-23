@@ -6,37 +6,51 @@
 
 #include <ui.h>
 
-#define auto __auto_type
-
 static int onCloseWrapper(uiWindow *_, void *data)
 {
     OUIWindow *window = (__bridge OUIWindow *)data;
-    return window.onClosing(window);
+    return window.onClosing ? window.onClosing(window) : 0;
 }
 
 static void onContentSizeChangedWrapper(uiWindow *handle, void *data)
 {
-    auto window = (__bridge OUIWindow *)data;
+    OUIWindow *window = (__bridge OUIWindow *)data;
     int width, height;
     uiWindowContentSize(handle, &width, &height);
-    window.onContentSizeChanged(window, width, height);
+    window.onContentSizeChanged ? window.onContentSizeChanged(window, width, height) : 0;
 }
 
 @implementation OUIWindow
 
+@synthesize child = _child;
+@synthesize onClosing = _onClosing;
+@synthesize onContentSizeChanged = _onContentSizeChanged;
+
 + (instancetype)windowWithTitle:(OFString *)title width:(int)width height:(int)height hasMenubar:(bool)hasMenuBar
 { return [[self alloc] initWithTitle:title width:width height:height hasMenubar:hasMenuBar]; }
+
+- (instancetype)initWithTitle:(OFString *)title width:(int)width height:(int)height hasMenubar:(bool)hasMenuBar
+{
+    self = [super initFromControl: uiControl(uiNewWindow(title.UTF8String, width, height, hasMenuBar))];
+    uiWindowOnClosing(uiWindow(_control), onCloseWrapper, (__bridge_retained void *)self);
+    uiWindowOnContentSizeChanged(uiWindow(_control), &onContentSizeChangedWrapper, (__bridge_retained void *)self);
+    return self;
+}
+
+- (int (^)(OUIWindow *))onClosing
+{ return _onClosing; }
 
 - (void)setOnClosing:(int (^)(OUIWindow *))onClosing
 {
     _onClosing = onClosing;
-    uiWindowOnClosing(uiWindow(self->_control), onCloseWrapper, (__bridge_retained void *)(self));
 }
+
+- (void (^)(OUIWindow *, int, int))onContentSizeChanged
+{ return _onContentSizeChanged; }
 
 - (void)setOnContentSizeChanged:(void (^)(OUIWindow *, int, int))onContentSizeChanged
 {
     _onContentSizeChanged = onContentSizeChanged;
-    uiWindowOnContentSizeChanged(uiWindow(_control), &onContentSizeChangedWrapper, (__bridge_retained void *)self);
 }
 
 - (void)setContentSize:(int)width height:(int)height
@@ -49,31 +63,28 @@ static void onContentSizeChangedWrapper(uiWindow *handle, void *data)
     uiWindowContentSize(uiWindow(_control), width, height);
 }
 
+- (bool)fullscreen
+{ return uiWindowFullscreen(uiWindow(_control)); }
+
 - (void)setFullscreen:(bool)fullscreen
-{
-    _fullscreen = fullscreen;
-    uiWindowSetFullscreen(uiWindow(_control), fullscreen);
-}
+{ uiWindowSetFullscreen(uiWindow(_control), fullscreen); }
+
+- (bool)borderless
+{ return uiWindowBorderless(uiWindow(_control)); }
 
 - (void)setBorderless:(bool)borderless
 {
-    _borderless = borderless;
     uiWindowSetBorderless(uiWindow(_control), borderless);
 }
 
+- (bool)margined
+{ return uiWindowMargined(uiWindow(_control)); }
+
 - (void)setMargined:(bool)margined
-{
-    _margined = margined;
-    uiWindowSetMargined(uiWindow(_control), margined);
-}
+{ uiWindowSetMargined(uiWindow(_control), margined); }
 
-- (instancetype)initWithTitle:(OFString *)title width:(int)width height:(int)height hasMenubar:(bool)hasMenuBar
-{
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewWindow(title.UTF8String, width, height, hasMenuBar));
-    return self;
-}
+- (OUIControl *)child
+{ return _child; }
 
 - (void)setChild:(OUIControl *)child
 {

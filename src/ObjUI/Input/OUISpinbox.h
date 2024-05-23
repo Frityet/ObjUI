@@ -6,9 +6,9 @@
 
 #import "OUIInput.h"
 
-@interface OUISpinbox : OUIControl<OUIInput>
+@interface OUISpinbox : OUIInput
 
-@property(nonatomic, setter=setValue:, getter=getValue) int value;
+@property int value;
 
 + (instancetype)spinbox;
 + (instancetype)spinboxWithMin: (int)min max: (int)max;

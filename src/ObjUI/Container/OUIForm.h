@@ -7,7 +7,7 @@
 @interface OUIForm : OUIControl
 
 @property(readonly) int childCount;
-@property(nonatomic, setter=setPadded:) bool padded;
+@property bool padded;
 
 + (instancetype)form;
 

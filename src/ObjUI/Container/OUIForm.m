@@ -6,13 +6,7 @@
 { return [[self alloc] init]; }
 
 - (instancetype)init
-{
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewForm());
-
-    return self;
-}
+{ return [super initFromControl: uiControl(uiNewForm())]; }
 
 - (void)appendControl: (OUIControl *)control label: (OFString *)label stretchy: (bool)stretchy
 { uiFormAppend(uiForm(_control), [label UTF8String], uiControl(control.control), stretchy); }
@@ -22,5 +16,11 @@
 
 - (void)delete: (int)index
 { uiFormDelete(uiForm(_control), index); }
+
+- (bool)padded
+{ return uiFormPadded(uiForm(_control)); }
+
+- (void)setPadded: (bool)padded
+{ uiFormSetPadded(uiForm(_control), padded); }
 
 @end

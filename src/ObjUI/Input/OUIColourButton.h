@@ -10,10 +10,10 @@ typedef struct {
     double red, green, blue, alpha;
 } OUIColour;
 
-@interface OUIColourButton : OUIControl<OUIInput>
+@interface OUIColourButton : OUIInput
 
-@property (nonatomic, setter=setColour:, getter=getColour) OUIColour colour;
+@property OUIColour colour;
 
-+ (instancetype)colourButton;
++ (instancetype)button;
 
 @end

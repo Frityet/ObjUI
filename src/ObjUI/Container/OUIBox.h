@@ -7,7 +7,7 @@
 
 @interface OUIBox : OUIControl
 
-@property(nonatomic, setter=setPadded:) bool padded;
+@property bool padded;
 @property(readonly) bool vertical;
 @property(readonly) int childCount;
 

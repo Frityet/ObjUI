@@ -10,18 +10,17 @@
 
 #pragma clang assume_nonnull begin
 
-@interface OUIComboBox : OUIControl<OUIInput> {
+@interface OUIComboBox : OUIInput {
     @private OFMutableArray<OFString * > *_items;
 }
 
-@property(nonatomic, setter=setSelectedIndex:, getter=getSelectedIndex) int selectedIndex;
-@property(nonatomic, setter=setItems:) OFArray<OFString *> *items;
+@property int selectedIndex;
+@property(setter=setItems:) OFArray<OFString *> *items;
 
 @property(readonly) int itemCount;
 @property(readonly) OFString *_Nullable selected;
 
 + (instancetype)comboBoxWithItems: (OFArray<OFString *> *)items;
-
 - (instancetype)initWithItems: (OFArray<OFString *> *)items;
 
 - (void)append: (OFString *)item;

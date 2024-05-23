@@ -1,14 +1,6 @@
 #include "OUISlider.h"
 
-static void onChangedWrapper(uiSlider *s, void *data)
-{
-    OUISlider *self = (__bridge OUISlider *)data;
-    self.onChanged(self);
-}
-
 @implementation OUISlider
-
-@synthesize onChanged;
 
 + (instancetype)slider
 { return [[self alloc] init]; }
@@ -17,33 +9,17 @@ static void onChangedWrapper(uiSlider *s, void *data)
 { return [[self alloc] initWithMin: min max: max]; }
 
 - (instancetype)init
-{
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewSlider(0, 100));
-
-    return self;
-}
+{ return [self initWithMin: 0 max: 100]; }
 
 - (instancetype)initWithMin: (int)min max: (int)max
 {
-    if ((self = [super init]) == nil) return nil;
-
-    _control = uiControl(uiNewSlider(min, max));
-
-    return self;
+    return [super initFromControl: uiControl(uiNewSlider(min, max)) onChangedSetter: uiSliderOnChanged];
 }
+
+- (int)value
+{ return uiSliderValue(uiSlider(_control)); }
 
 - (void)setValue: (int)value
 { uiSliderSetValue(uiSlider(_control), value); }
-
-- (int)getValue
-{ return uiSliderValue(uiSlider(_control)); }
-
-- (void)setOnChanged: (void (^)(OUIControl *))fn
-{
-    self->onChanged = fn;
-    uiSliderOnChanged(uiSlider(_control), &onChangedWrapper, (__bridge_retained void *)self);
-}
 
 @end

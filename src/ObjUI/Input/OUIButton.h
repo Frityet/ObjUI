@@ -6,9 +6,9 @@
 #import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
 
-@interface OUIButton : OUIControl<OUIInput>
+@interface OUIButton : OUIInput
 
-@property(nonatomic, setter=setText:) OFString *text;
+@property OFString *text;
 
 + (instancetype)buttonWithLabel: (OFString *)text;
 - (instancetype)initWithText: (OFString *)text;

@@ -6,32 +6,28 @@
 @implementation OUIBox
 
 + (instancetype)verticalBox
-{ return [[self alloc] initWithVerticalOrientation: 1]; }
+{ return [[self alloc] initWithVerticalOrientation: true]; }
 
 + (instancetype)horizontalBox
-{ return [[self alloc] initWithVerticalOrientation: 0]; }
+{ return [[self alloc] initWithVerticalOrientation: false]; }
 
 - (instancetype)initWithVerticalOrientation:(bool)vertical
 {
-    if ((self = [super init]) == nil) return nil;
-
+    self = [super initFromControl: uiControl(vertical ? uiNewVerticalBox() : uiNewHorizontalBox())];
     _vertical = vertical;
-    _control = uiControl(vertical ? uiNewVerticalBox() : uiNewHorizontalBox());
-
     return self;
 }
 
+- (bool)padded
+{ return uiBoxPadded(uiBox(_control)); }
 - (void)setPadded: (bool)padded
-{
-    _padded = padded;
-    uiBoxSetPadded(uiBox(_control), padded);
-}
+{ uiBoxSetPadded(uiBox(_control), padded); }
 
 - (int)childCount
 { return uiBoxNumChildren(uiBox(_control)); }
 
 - (void)appendControl: (OUIControl *)control
-{ [self appendControl: control stretchy: 0]; }
+{ [self appendControl: control stretchy: false]; }
 
 - (void)appendControl: (OUIControl *)control stretchy: (bool)stretchy
 { uiBoxAppend(uiBox(_control), control.control, stretchy); }

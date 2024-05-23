@@ -8,12 +8,11 @@
 #import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
 
-@interface OUIEditableComboBox : OUIControl<OUIInput>
+@interface OUIEditableComboBox : OUIInput
 
-@property(nonatomic, setter=setText:, getter=getText) OFString *text;
+@property OFString *text;
 
 + (instancetype)editableComboBoxWithItems: (OFArray<OFString *> *)items;
-
 - (instancetype)initWithItems: (OFArray<OFString *> *)items;
 
 - (void)append: (OFString *)item;

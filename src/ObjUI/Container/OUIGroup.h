@@ -6,14 +6,11 @@
 
 @interface OUIGroup : OUIControl
 
-@property(nonatomic, setter=setTitle:) OFString *title;
-@property(nonatomic, setter=setMargined:) bool margined;
-@property(nonatomic, setter=setChild:) OUIControl *child;
-
-
+@property OFString *title;
+@property bool margined;
+@property OUIControl *child;
 
 + (instancetype)groupWithLabel: (OFString *)title;
-
 - (instancetype)initWithLabel: (OFString *)title;
 
 @end

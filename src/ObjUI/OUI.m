@@ -11,7 +11,7 @@
 static int onShouldQuitWrapper(void *data)
 {
     bool (^onShouldQuit)() = (__bridge bool (^)())data;
-    return onShouldQuit();
+    return onShouldQuit ? onShouldQuit() : 0;
 }
 
 @implementation OUIInitalizationFailedException

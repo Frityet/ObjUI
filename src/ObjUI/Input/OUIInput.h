@@ -1,7 +1,13 @@
 #import <ObjUI/OUIControl.h>
 
-@protocol OUIInput
+@interface OUIInput : OUIControl {
+    bool _usingOwnHandler;
+}
 
-@property(nonatomic, setter=setOnChanged:) void (^onChanged)(OUIControl *sender);
+@property void (^onChanged)(OUIControl *sender);
+
+- (instancetype)initFromControl:(uiControl *)control onChangedSetter: (void *)setter;
+
+- (void(*)(uiControl *, void *))onChangedCallback;
 
 @end

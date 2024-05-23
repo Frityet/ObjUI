@@ -14,9 +14,9 @@ typedef struct {
     uiTextStretch stretch;
 } OUIFont;
 
-@interface OUIFontButton : OUIControl<OUIInput>
+@interface OUIFontButton : OUIInput
 
-@property (nonatomic, readonly) OUIFont font;
+@property(readonly) OUIFont font;
 
 + (instancetype)fontButton;
 

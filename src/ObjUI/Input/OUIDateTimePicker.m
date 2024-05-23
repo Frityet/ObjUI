@@ -5,15 +5,7 @@
 #import <ObjFW/OFInvalidArgumentException.h>
 #import <ObjFW/OFInitializationFailedException.h>
 
-static void onChangedWrapper(uiDateTimePicker *picker, void *data)
-{
-    OUIDateTimePicker *self = (__bridge OUIDateTimePicker *)data;
-    self.onChanged(self);
-}
-
 @implementation OUIDateTimePicker
-
-@synthesize onChanged;
 
 + (instancetype)datePicker
 { return [[self alloc] initWithType: OUIDateTimePickerDate];}
@@ -26,27 +18,41 @@ static void onChangedWrapper(uiDateTimePicker *picker, void *data)
 
 - (instancetype)initWithType: (enum OUIDateTimePickerType)type
 {
-    if (!(self = [super init])) return nil;
-
-    _type = type;
-
+    uiControl *control;
     switch (type) {
         case OUIDateTimePickerDate:
-            _control = uiControl(uiNewDatePicker());
+            control = uiControl(uiNewDatePicker());
             break;
         case OUIDateTimePickerTime:
-            _control = uiControl(uiNewTimePicker());
+            control = uiControl(uiNewTimePicker());
             break;
 
         case OUIDateTimePickerDateTime:
-            _control = uiControl(uiNewDateTimePicker());
+            control = uiControl(uiNewDateTimePicker());
             break;
 
         default:
             @throw [OFInvalidArgumentException exception];
     }
 
+    self = [super initFromControl: control onChangedSetter: uiDateTimePickerOnChanged];
+    _type = type;
     return self;
+}
+
+- (instancetype)initFromControl:(uiControl *)control
+{
+    self = [super initFromControl: control];
+    _type = OUIDateTimePickerUnknown;
+    return self;
+}
+
+- (OFDate *)date
+{
+    struct tm time;
+    uiDateTimePickerTime(uiDateTimePicker(_control), &time);
+
+    return [OFDate dateWithTimeIntervalSince1970: mktime(&time)];
 }
 
 - (void)setDate: (OFDate *)date
@@ -56,20 +62,6 @@ static void onChangedWrapper(uiDateTimePicker *picker, void *data)
     if (time == NULL) @throw [OFInitializationFailedException exception];
 
     uiDateTimePickerSetTime(uiDateTimePicker(_control), time);
-}
-
-- (OFDate *)getDate
-{
-    struct tm time;
-    uiDateTimePickerTime(uiDateTimePicker(_control), &time);
-
-    return [OFDate dateWithTimeIntervalSince1970: mktime(&time)];
-}
-
-- (void)setOnChanged: (void (^)(OUIControl *))fn
-{
-    self->onChanged = fn;
-    uiDateTimePickerOnChanged(uiDateTimePicker(_control), onChangedWrapper, (__bridge_retained void *)self);
 }
 
 @end

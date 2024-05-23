@@ -6,13 +6,12 @@
 
 #import "OUIInput.h"
 
-@interface OUISlider : OUIControl<OUIInput>
+@interface OUISlider : OUIInput
 
-@property(nonatomic, setter=setValue:, getter=getValue) int value;
+@property int value;
 
 + (instancetype)slider;
 + (instancetype)sliderWithMin: (int)min max: (int)max;
-
 - (instancetype)initWithMin: (int)min max: (int)max;
 
 @end
