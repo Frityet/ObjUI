@@ -1,12 +1,11 @@
-#import <ObjFW/OFObject.h>
 #import <ObjFW/OFString.h>
 #import <ObjFW/OFArray.h>
-#import <ObjFW/OFMutableArray.h>
 
 #include <ui.h>
 
-#import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
+
+#pragma clang assume_nonnull begin
 
 @interface OUIRadioButtons : OUIInput
 
@@ -18,4 +17,4 @@
 
 @end
 
-
+#pragma clang assume_nonnull end

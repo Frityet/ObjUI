@@ -6,6 +6,8 @@
 
 #import "OUIInput.h"
 
+#pragma clang assume_nonnull begin
+
 @interface OUICheckbox : OUIInput
 
 @property OFString *text;
@@ -15,3 +17,5 @@
 - (instancetype)initWithLabel: (OFString *)text;
 
 @end
+
+#pragma clang assume_nonnull end

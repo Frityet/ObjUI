@@ -4,6 +4,8 @@
 
 #include <ui.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUIGrid : OUIControl
 
 @property bool padded;
@@ -21,3 +23,5 @@
                vAlign: (int)vAlign;
 
 @end
+
+#pragma clang assume_nonnull end

@@ -4,6 +4,8 @@
 
 #include <ui.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUITab : OUIControl
 
 @property(readonly) int pageCount;
@@ -16,3 +18,5 @@
 - (void)setMargined: (bool)margined atIndex: (int)index;
 
 @end
+
+#pragma clang assume_nonnull end

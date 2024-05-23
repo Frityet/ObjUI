@@ -3,6 +3,8 @@
 
 #import <ObjUI/Container/OUIWindow.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUIDialog : OFObject
 
 
@@ -21,3 +23,4 @@
 
 @end
 
+#pragma clang assume_nonnull end

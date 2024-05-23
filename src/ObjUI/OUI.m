@@ -16,10 +16,10 @@ static int onShouldQuitWrapper(void *data)
 
 @implementation OUIInitalizationFailedException
 
-+ (instancetype)exceptionWithError:(const char *)error
++ (instancetype)exceptionWithError:(OFString *)error
 { return [[self alloc] initWithError: error]; }
 
-- (instancetype)initWithError:(const char *)error
+- (instancetype)initWithError:(OFString *)error
 {
     self = [super initWithClass: OUI.class];
 
@@ -43,9 +43,6 @@ static int onShouldQuitWrapper(void *data)
 
     if (err != NULL)
         @throw [OFInitializationFailedException exception];
-
-
-    // atexit(uiUninit);
 }
 
 

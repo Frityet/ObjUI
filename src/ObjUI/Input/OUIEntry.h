@@ -7,6 +7,8 @@
 
 #import "OUIInput.h"
 
+#pragma clang assume_nonnull begin
+
 enum OUIEntryType {
     OUIEntryTypeUnknown,
     OUIEntryTypeNormal,
@@ -31,3 +33,5 @@ enum OUIEntryType {
 - (instancetype)initWithType: (enum OUIEntryType)type;
 
 @end
+
+#pragma clang assume_nonnull end

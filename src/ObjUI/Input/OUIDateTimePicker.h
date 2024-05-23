@@ -6,8 +6,9 @@
 
 #include <ui.h>
 
-#import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
+
+#pragma clang assume_nonnull begin
 
 enum OUIDateTimePickerType {
     OUIDateTimePickerUnknown    = 0,
@@ -28,3 +29,5 @@ enum OUIDateTimePickerType {
 - (instancetype)initWithType: (enum OUIDateTimePickerType)type;
 
 @end
+
+#pragma clang assume_nonnull end

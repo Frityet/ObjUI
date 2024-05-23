@@ -5,6 +5,8 @@
 
 #include "OUIControl.h"
 
+#pragma clang assume_nonnull begin
+
 @interface OUIProgressBar : OUIControl
 
 @property int progress;
@@ -12,3 +14,5 @@
 + (instancetype)progressBar;
 
 @end
+
+#pragma clang assume_nonnull end

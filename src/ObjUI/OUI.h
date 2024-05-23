@@ -1,12 +1,14 @@
 #import <ObjFW/OFObject.h>
 #import <ObjFW/OFInitializationFailedException.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUIInitalizationFailedException : OFInitializationFailedException
 
-@property(readonly) const char *error;
+@property(readonly) OFString *error;
 
-+ (instancetype)exceptionWithError: (const char *)error;
-- (instancetype)initWithError: (const char *)error;
++ (instancetype)exceptionWithError: (OFString *)error;
+- (instancetype)initWithError: (OFString *)error;
 
 @end
 
@@ -18,3 +20,5 @@
 + (void) onShouldQuit: (bool (^)())onShouldQuit;
 
 @end
+
+#pragma clang assume_nonnull end

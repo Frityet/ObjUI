@@ -4,6 +4,8 @@
 
 #include <ui.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUISeperator : OUIControl
 
 + (instancetype)horizontalSeperator;
@@ -12,3 +14,5 @@
 - (instancetype)initWithVerticalOrientation: (bool)vertical;
 
 @end
+
+#pragma clang assume_nonnull end

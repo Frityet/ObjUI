@@ -6,6 +6,8 @@
 #import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
 
+#pragma clang assume_nonnull begin
+
 @interface OUIButton : OUIInput
 
 @property OFString *text;
@@ -15,3 +17,5 @@
 
 
 @end
+
+#pragma clang assume_nonnull end

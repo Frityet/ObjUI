@@ -5,8 +5,9 @@
 
 #include <ui.h>
 
-#import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
+
+#pragma clang assume_nonnull begin
 
 @interface OUIEditableComboBox : OUIInput
 
@@ -18,3 +19,5 @@
 - (void)append: (OFString *)item;
 
 @end
+
+#pragma clang assume_nonnull end

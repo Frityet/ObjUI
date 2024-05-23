@@ -2,9 +2,9 @@
 #import <ObjFW/OFString.h>
 #import <ObjUI/OUIControl.h>
 
-
 #include <ui.h>
 
+#pragma clang assume_nonnull begin
 
 @interface OUIMenuItem : OFObject {
     @private uiMenuItem *_menuItem;
@@ -39,3 +39,5 @@
 
 
 @end
+
+#pragma clang assume_nonnull end

@@ -6,6 +6,8 @@
 #import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
 
+#pragma clang assume_nonnull begin
+
 typedef struct {
     OFString *family;
     int size;
@@ -21,3 +23,5 @@ typedef struct {
 + (instancetype)fontButton;
 
 @end
+
+#pragma clang assume_nonnull end

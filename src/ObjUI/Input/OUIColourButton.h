@@ -3,8 +3,9 @@
 
 #include <ui.h>
 
-#import <ObjUI/OUIControl.h>
 #import "OUIInput.h"
+
+#pragma clang assume_nonnull begin
 
 typedef struct {
     double red, green, blue, alpha;
@@ -17,3 +18,5 @@ typedef struct {
 + (instancetype)button;
 
 @end
+
+#pragma clang assume_nonnull end

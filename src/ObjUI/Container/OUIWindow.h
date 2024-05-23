@@ -4,6 +4,8 @@
 
 #import <ObjUI/OUIControl.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUIWindow : OUIControl
 
 @property(setter=setOnClosing:) int (^onClosing)(OUIWindow *window);
@@ -28,3 +30,5 @@
 - (void)close;
 
 @end
+
+#pragma clang assume_nonnull end

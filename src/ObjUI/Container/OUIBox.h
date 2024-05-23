@@ -5,6 +5,8 @@
 
 #include <ui.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUIBox : OUIControl
 
 @property bool padded;
@@ -22,3 +24,5 @@
 - (void)delete: (int)index;
 
 @end
+
+#pragma clang assume_nonnull end

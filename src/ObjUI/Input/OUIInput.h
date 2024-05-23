@@ -1,5 +1,7 @@
 #import <ObjUI/OUIControl.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUIInput : OUIControl {
     bool _usingOwnHandler;
 }
@@ -11,3 +13,5 @@
 - (void(*)(uiControl *, void *))onChangedCallback;
 
 @end
+
+#pragma clang assume_nonnull end

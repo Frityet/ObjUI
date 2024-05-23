@@ -4,11 +4,15 @@
 
 #include <ui.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUILabel : OUIControl
 
-@property(nonatomic, setter=setText:) OFString *text;
+@property OFString *text;
 
 + (instancetype)labelWithText: (OFString *)text;
 - (instancetype)initWithText: (OFString *)text;
 
 @end
+
+#pragma clang assume_nonnull end

@@ -4,6 +4,8 @@
 
 #include <ui.h>
 
+#pragma clang assume_nonnull begin
+
 @interface OUIForm : OUIControl
 
 @property(readonly) int childCount;
@@ -16,3 +18,5 @@
 - (void)delete: (int)index;
 
 @end
+
+#pragma clang assume_nonnull end

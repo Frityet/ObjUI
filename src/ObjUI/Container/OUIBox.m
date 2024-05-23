@@ -27,10 +27,13 @@
 { return uiBoxNumChildren(uiBox(_control)); }
 
 - (void)appendControl: (OUIControl *)control
-{ [self appendControl: control stretchy: false]; }
+{[self appendControl: control stretchy: false]; }
 
 - (void)appendControl: (OUIControl *)control stretchy: (bool)stretchy
-{ uiBoxAppend(uiBox(_control), control.control, stretchy); }
+{
+    control.parent = self;
+    uiBoxAppend(uiBox(_control), control.control, stretchy);
+}
 
 - (void)delete: (int)index
 { uiBoxDelete(uiBox(_control), index); }
