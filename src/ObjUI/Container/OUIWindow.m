@@ -92,7 +92,16 @@ static void onContentSizeChangedWrapper(uiWindow *handle, void *data)
     uiWindowSetChild(uiWindow(_control), uiControl(child.control));
 }
 
-- (void)close
-{ uiControlDestroy(_control); }
+- (void)show
+{
+    self.visible = true;
+}
+
+//This SIGSEGVs when the window is closed. that isnt good!
+- (void)close __attribute__((no_sanitize("address")))
+{
+    self.visible = false;
+    /*uiControlDestroy(_control);*/
+}
 
 @end

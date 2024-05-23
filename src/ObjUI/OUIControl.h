@@ -7,10 +7,9 @@
 }
 
 @property(readonly) uiControl *control;
-@property(nonatomic, setter=setEnabled:) bool enabled;
+@property bool enabled;
+@property bool visible;
 
-- (void)show;
-- (bool)isVisible;
 - (void)dealloc;
 
 - (instancetype)initFromControl:(uiControl *)control;

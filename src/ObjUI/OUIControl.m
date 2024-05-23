@@ -10,13 +10,17 @@
 - (uiControl *)control
 { return _control; }
 
-- (void)setEnabled:(bool)enabled {
-    _enabled = enabled;
-    enabled ? uiControlEnable(self.control) : uiControlDisable(self.control);
-}
+- (bool)enabled
+{ return uiControlEnabled(self.control); }
 
-- (bool)isVisible
+- (void)setEnabled:(bool)enabled
+{ enabled ? uiControlEnable(self.control) : uiControlDisable(self.control); }
+
+- (bool)visible
 { return uiControlVisible(self.control); }
+
+- (void)setVisible:(bool)isVisible
+{ isVisible ? uiControlShow(self.control) : uiControlHide(self.control); }
 
 - (void)dealloc
 { /*uiControlDestroy(self.control);*/ }

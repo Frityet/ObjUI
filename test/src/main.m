@@ -76,7 +76,7 @@ static OUIBox *inputControls(OUIWindow *window)
             [vbox appendControl: [OUIDateTimePicker timePicker]];
             [vbox appendControl: [OUIDateTimePicker dateTimePicker]];
             [vbox appendControl: [OUIFontButton     fontButton]];
-            [vbox appendControl: [OUIColourButton   colourButton]];
+            [vbox appendControl: [OUIColourButton   button]];
         }
         [hbox appendControl: vbox];
 
@@ -124,7 +124,7 @@ static OUIBox *inputControls(OUIWindow *window)
     [tab appendControl: inputControls(window) label: @"Input Controls"];
     [tab setMargined: true atIndex: 1];
 
-    [window show];
+    window.visible = true;
     // [OUI asyncMain];
     [OUI main];
 
