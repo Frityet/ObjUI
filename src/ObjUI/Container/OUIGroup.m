@@ -41,6 +41,7 @@
 {
     _child = child;
     uiGroupSetChild(uiGroup(_control), child.control);
+    child.parent = self;
 }
 
 @end

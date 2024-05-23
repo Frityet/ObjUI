@@ -9,7 +9,10 @@
 { return [super initFromControl: uiControl(uiNewTab())]; }
 
 - (void)appendControl:(OUIControl *)control label: (OFString *)name
-{ uiTabAppend(uiTab(_control), name.UTF8String, control.control); }
+{
+    uiTabAppend(uiTab(_control), name.UTF8String, control.control);
+    control.parent = self;
+}
 
 - (void)insertAtIndex:(int)index with:(OUIControl *)control label:(OFString *)name
 { uiTabInsertAt(uiTab(_control), name.UTF8String, index, control.control); }

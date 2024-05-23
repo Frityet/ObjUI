@@ -17,7 +17,10 @@
               vExpand: (bool)vexpand
                hAlign: (int)hAlign
                vAlign: (int)vAlign
-{ uiGridAppend(uiGrid(_control),  control.control, left, top, xspan, yspan, hexpand, vexpand, hAlign, vAlign); }
+{
+    uiGridAppend(uiGrid(_control),  control.control, left, top, xspan, yspan, hexpand, vexpand, hAlign, vAlign);
+    control.parent = self;
+}
 
 - (bool)padded
 { return uiGridPadded(uiGrid(_control)); }

@@ -90,6 +90,7 @@ static void onContentSizeChangedWrapper(uiWindow *handle, void *data)
 {
     _child = child;
     uiWindowSetChild(uiWindow(_control), uiControl(child.control));
+    child.parent = self;
 }
 
 - (void)show

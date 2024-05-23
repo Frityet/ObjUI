@@ -9,7 +9,10 @@
 { return [super initFromControl: uiControl(uiNewForm())]; }
 
 - (void)appendControl: (OUIControl *)control label: (OFString *)label stretchy: (bool)stretchy
-{ uiFormAppend(uiForm(_control), [label UTF8String], uiControl(control.control), stretchy); }
+{
+    uiFormAppend(uiForm(_control), [label UTF8String], uiControl(control.control), stretchy);
+    control.parent = self;
+}
 
 - (void)appendControl: (OUIControl *)control label: (OFString *)label
 { [self appendControl: control label: label stretchy: 0]; }
