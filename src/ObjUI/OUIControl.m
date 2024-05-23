@@ -29,7 +29,11 @@
 - (void)setParent: (OUIControl *_Nullable)parent
 {
     _parent = parent;
-    uiControlSetParent(self.control, _parent.control);
+
+    if (_parent && uiControlParent(self.control) != _parent.control) {
+        uiControlSetParent(self.control, NULL);
+        uiControlSetParent(self.control, _parent.control);
+    }
 }
 
 - (void)setParent:(uiControl *)parent ofClass: (Class)class
