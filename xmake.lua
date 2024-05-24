@@ -25,7 +25,7 @@ set_languages {
 
 add_rules("mode.debug", "mode.release")
 
-add_requires("objfw", "libui master", { configs = { shared = is_kind("shared") } })
+add_requires("objfw", "libui master", { configs = { shared = true  } }) --can only be built shared
 
 target("ObjUI")
 do

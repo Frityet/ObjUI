@@ -93,6 +93,12 @@ static void onContentSizeChangedWrapper(uiWindow *handle, void *data)
     child.parent = self;
 }
 
+- (OFString *)title
+{ return [OFString stringWithUTF8String: uiWindowTitle(uiWindow(_control))]; }
+
+- (void)setTitle:(OFString *)title
+{ uiWindowSetTitle(uiWindow(_control), title.UTF8String); }
+
 - (void)show
 {
     self.visible = true;
